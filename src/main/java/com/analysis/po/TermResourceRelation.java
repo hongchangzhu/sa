@@ -6,125 +6,124 @@ import java.util.Date;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class TermResourceRelation implements Serializable{
+import com.framework.dao.IBean;
+
+public class TermResourceRelation implements Serializable, IBean {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -340572866513033743L;
 
-	private String resourceId;// ×ÊÔ´id
-	private String resourceName;// ×ÊÔ´Ãû³Æ
-	private String termId;// ÖÕ¶Ëid
-	private String termName;// ÖÕ¶ËÃû³Æ
-	private String subjectId;// Ñ§¿Æid
-	private String classId;// Äê¼¶id
-	private String optType;// ²Ù×÷ÀàÐÍ£¬µã»÷Á¿¡¢ÏÂÔØÁ¿¡¢ÒÑ½ÓÊÕ
-	private Date optTime;// ²Ù×÷Ê±¼ä
-	private String regoinId;// µØÇøid
-	private String regoinName;// µØÇøÃû³Æ
+	private String resourceId;// ï¿½ï¿½Ô´id
+	private String resourceName;// ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
+	private String termId;// ï¿½Õ¶ï¿½id
+	private String termName;// ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½
+	private String subjectId;// Ñ§ï¿½ï¿½id
+	private String classId;// ï¿½ê¼¶id
+	private String optType;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½
+	private Date optTime;// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	private String regoinId;// ï¿½ï¿½ï¿½ï¿½id
+	private String regoinName;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private BigDecimal optCount;
 
-	public String getClassId(){
+	public String getClassId() {
 		return classId;
 	}
 
-	public BigDecimal getOptCount(){
+	public BigDecimal getOptCount() {
 		return optCount;
 	}
 
-	public void setOptCount(BigDecimal optCount){
+	public void setOptCount(BigDecimal optCount) {
 		this.optCount = optCount;
 	}
 
-	public void setClassId(String classId){
+	public void setClassId(String classId) {
 		this.classId = classId;
 	}
 
-	public Date getOptTime(){
+	public Date getOptTime() {
 		return optTime;
 	}
 
-	public void setOptTime(Date optTime){
+	public void setOptTime(Date optTime) {
 		this.optTime = optTime;
 	}
 
-	public String getOptType(){
+	public String getOptType() {
 		return optType;
 	}
 
-	public void setOptType(String optType){
+	public void setOptType(String optType) {
 		this.optType = optType;
 	}
 
-	public String getRegoinId(){
+	public String getRegoinId() {
 		return regoinId;
 	}
 
-	public void setRegoinId(String regoinId){
+	public void setRegoinId(String regoinId) {
 		this.regoinId = regoinId;
 	}
 
-	public String getRegoinName(){
+	public String getRegoinName() {
 		return regoinName;
 	}
 
-	public void setRegoinName(String regoinName){
+	public void setRegoinName(String regoinName) {
 		this.regoinName = regoinName;
 	}
 
-	public String getResourceId(){
+	public String getResourceId() {
 		return resourceId;
 	}
 
-	public void setResourceId(String resourceId){
+	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
 	}
 
-	public String getResourceName(){
+	public String getResourceName() {
 		return resourceName;
 	}
 
-	public void setResourceName(String resourceName){
+	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
 
-	public String getSubjectId(){
+	public String getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(String subjectId){
+	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 
-	public String getTermId(){
+	public String getTermId() {
 		return termId;
 	}
 
-	public void setTermId(String termId){
+	public void setTermId(String termId) {
 		this.termId = termId;
 	}
 
-	public String getTermName(){
+	public String getTermName() {
 		return termName;
 	}
 
-	public void setTermName(String termName){
+	public void setTermName(String termName) {
 		this.termName = termName;
 	}
 
-	public String toString(){
+	public String toString() {
 		return new ToStringBuilder(this).append("resourceId", getResourceId())
-				.append("resourceName", getResourceName()).append("termId",
-						getTermId()).append("termName", getTermName()).append(
-						"subjectId", getSubjectId()).append("classId",
-						getClassId()).append("optType", getOptType()).append(
-						"optTime", getOptTime()).append("regoinId",
-						getRegoinId()).append("regoinName", getRegoinName())
-				.toString();
+				.append("resourceName", getResourceName()).append("termId", getTermId())
+				.append("termName", getTermName()).append("subjectId", getSubjectId()).append("classId", getClassId())
+				.append("optType", getOptType()).append("optTime", getOptTime()).append("regoinId", getRegoinId())
+				.append("regoinName", getRegoinName()).toString();
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		// TODO Auto-generated method stub
 		return super.hashCode();
 	}

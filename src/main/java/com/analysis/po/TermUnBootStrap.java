@@ -3,41 +3,43 @@ package com.analysis.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.framework.dao.IBean;
+
 /**
  * 
- * @ËµÃ÷£ºÎ´¿ª»úÖÕ¶Ë
+ * @Ëµï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½
  * 
- * @×÷Õß£º³Âê»
- * @ÈÕÆÚ£º2014-4-12
- * @ÐÞ¸ÄÈË£º
- * @ÐÞ¸ÄÈÕÆÚ£º
+ * @ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½
+ * @ï¿½ï¿½ï¿½Ú£ï¿½2014-4-12
+ * @ï¿½Þ¸ï¿½ï¿½Ë£ï¿½
+ * @ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
  */
-public class TermUnBootStrap implements Serializable{
+public class TermUnBootStrap implements Serializable, IBean {
 	private String termId;
 	private String termName;
 	private Date checkDate;
 
-	public Date getCheckDate(){
+	public Date getCheckDate() {
 		return checkDate;
 	}
 
-	public void setCheckDate(Date checkDate){
+	public void setCheckDate(Date checkDate) {
 		this.checkDate = checkDate;
 	}
 
-	public String getTermId(){
+	public String getTermId() {
 		return termId;
 	}
 
-	public void setTermId(String termId){
+	public void setTermId(String termId) {
 		this.termId = termId;
 	}
 
-	public String getTermName(){
+	public String getTermName() {
 		return termName;
 	}
 
-	public void setTermName(String termName){
+	public void setTermName(String termName) {
 		this.termName = termName;
 	}
 }

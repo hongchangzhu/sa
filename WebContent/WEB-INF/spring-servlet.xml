@@ -92,11 +92,4 @@
 	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 		p:prefix="/WEB-INF/pages/" p:suffix=".jsp" /> -->
 
-	<mvc:interceptors>
-		<mvc:interceptor><!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
-			<mvc:mapping path="/**" />
-			<bean class="com.framework.support.BaseHandlerInterceptorAdapter"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
-
 </beans> 

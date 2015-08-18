@@ -3,7 +3,9 @@ package com.analysis.po;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BookCatelog implements Serializable {
+import com.framework.dao.IBean;
+
+public class BookCatelog implements Serializable, IBean {
 	private String parentId;
 	private String bookCatelogName;
 	private String bookCatelogId;

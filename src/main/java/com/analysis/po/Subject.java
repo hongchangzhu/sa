@@ -3,7 +3,9 @@ package com.analysis.po;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Subject implements Serializable {
+import com.framework.dao.IBean;
+
+public class Subject implements Serializable, IBean {
 	private String subjectId;
 	private String subjectName;
 	private BigDecimal seqNo;

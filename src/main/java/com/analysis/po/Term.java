@@ -5,30 +5,32 @@ import java.math.BigDecimal;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.framework.dao.IBean;
+
 /**
- * ÖÕ¶Ë
+ * ï¿½Õ¶ï¿½
  * 
- * @ËµÃ÷£º
+ * @Ëµï¿½ï¿½ï¿½ï¿½
  * 
- * @×÷Õß£º³Âê»
- * @ÈÕÆÚ£º2014-4-3
- * @ÐÞ¸ÄÈË£º
- * @ÐÞ¸ÄÈÕÆÚ£º
+ * @ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½
+ * @ï¿½ï¿½ï¿½Ú£ï¿½2014-4-3
+ * @ï¿½Þ¸ï¿½ï¿½Ë£ï¿½
+ * @ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
  */
-public class Term implements Serializable {
+public class Term implements Serializable, IBean {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1330629465665953818L;
 
-	private String termId;// ÖÕ¶Ë/Ñ§Ð£id
-	private String termName;// ÖÕ¶Ë/Ñ§Ð£Ãû³Æ
-	private String regoinId;// ÏØ/Çøid
+	private String termId;// ï¿½Õ¶ï¿½/Ñ§Ð£id
+	private String termName;// ï¿½Õ¶ï¿½/Ñ§Ð£ï¿½ï¿½ï¿½
+	private String regoinId;// ï¿½ï¿½/ï¿½ï¿½id
 
 	private String provinceId;// Ê¡id
-	private String cityId;// ÊÐid
-	private String schoolType;// Ñ§Ð£ÀàÐÍ
-	private BigDecimal vNo;// °æ±¾ºÅ
+	private String cityId;// ï¿½ï¿½id
+	private String schoolType;// Ñ§Ð£ï¿½ï¿½ï¿½ï¿½
+	private BigDecimal vNo;// ï¿½æ±¾ï¿½ï¿½
 	private String XXJGBXLXM3;
 
 	public String getProvinceId() {
@@ -96,9 +98,8 @@ public class Term implements Serializable {
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this).append("termId", getTermId()).append(
-				"termName", getTermName()).append("regoinId", getRegoinId())
-				.toString();
+		return new ToStringBuilder(this).append("termId", getTermId()).append("termName", getTermName())
+				.append("regoinId", getRegoinId()).toString();
 	}
 
 	public int hashCode() {

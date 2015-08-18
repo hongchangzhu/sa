@@ -3,7 +3,9 @@ package com.analysis.po;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class School implements Serializable {
+import com.framework.dao.IBean;
+
+public class School implements Serializable, IBean {
 	private String schoolId;
 	private String provinceId;
 	private String cityId;

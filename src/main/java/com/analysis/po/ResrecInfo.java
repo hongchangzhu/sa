@@ -1,23 +1,26 @@
 package com.analysis.po;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ResrecInfo {
-	private BigDecimal resrec_wx; // ÎÀĞÇ½ÓÊÕ±êÊ¶1:ÊÇ0:·ñ
-	private String resrec_wx_mac;// ÎÀĞÇ¿Í»§ºÅ
-	private BigDecimal resrec_net; // »¥ÁªÍø½ÓÊÕ±êÊ¶1:ÊÇ0:·ñ
-	private String resrec_net_mac; // »¥ÁªÍøMACµØÖ·
-	private String resrec_net_rtype; // ½ÓÊÕÀàĞÍjxd:½ÌÑ§µã£¬xx:Ğ¡Ñ§£¬zx:ÖĞÑ§
-	private String resrec_net_mac2; // »¥ÁªÍøMACµØÖ·2
-	private String resrec_net_rtype2; // ½ÓÊÕÀàĞÍ2
-	private String resrec_net_mac3; // »¥ÁªÍøMACµØÖ·3
-	private String resrec_net_rtype3; // ½ÓÊÕÀàĞÍ3
-	private String resrec_userphone; // ÁªÏµµç»°
-	private String resrec_address;// µØÖ·
-	private String resrec_useremail; // ÓÊÏä
-	private String resrec_zipcode; // ÓÊ±à
-	private String resrec_username; // ÁªÏµÈË
-	private String resrec_userqq;// QQºÅ
+import com.framework.dao.IBean;
+
+public class ResrecInfo implements Serializable, IBean {
+	private BigDecimal resrec_wx; // ï¿½ï¿½ï¿½Ç½ï¿½ï¿½Õ±ï¿½Ê¶1:ï¿½ï¿½0:ï¿½ï¿½
+	private String resrec_wx_mac;// ï¿½ï¿½ï¿½Ç¿Í»ï¿½ï¿½ï¿½
+	private BigDecimal resrec_net; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ê¶1:ï¿½ï¿½0:ï¿½ï¿½
+	private String resrec_net_mac; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MACï¿½ï¿½Ö·
+	private String resrec_net_rtype; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jxd:ï¿½ï¿½Ñ§ï¿½ã£¬xx:Ğ¡Ñ§ï¿½ï¿½zx:ï¿½ï¿½Ñ§
+	private String resrec_net_mac2; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MACï¿½ï¿½Ö·2
+	private String resrec_net_rtype2; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	private String resrec_net_mac3; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MACï¿½ï¿½Ö·3
+	private String resrec_net_rtype3; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	private String resrec_userphone; // ï¿½ï¿½Ïµï¿½ç»°
+	private String resrec_address;// ï¿½ï¿½Ö·
+	private String resrec_useremail; // ï¿½ï¿½ï¿½ï¿½
+	private String resrec_zipcode; // ï¿½Ê±ï¿½
+	private String resrec_username; // ï¿½ï¿½Ïµï¿½ï¿½
+	private String resrec_userqq;// QQï¿½ï¿½
 
 	/**
 	 * @return the resrec_wx

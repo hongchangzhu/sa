@@ -4,21 +4,22 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.framework.dao.IBean;
+
 /**
- * ÐÐÕþÇø»®
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 
- * @ËµÃ÷£º
+ * @Ëµï¿½ï¿½ï¿½ï¿½
  * 
- * @×÷Õß£º³Âê»
- * @ÈÕÆÚ£º2014-4-3
- * @ÐÞ¸ÄÈË£º
- * @ÐÞ¸ÄÈÕÆÚ£º
+ * @ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½
+ * @ï¿½ï¿½ï¿½Ú£ï¿½2014-4-3
+ * @ï¿½Þ¸ï¿½ï¿½Ë£ï¿½
+ * @ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
  */
-public class Regoin implements Serializable{
+public class Regoin implements Serializable, IBean {
 	/**
 	 * 
 	 */
@@ -35,97 +36,96 @@ public class Regoin implements Serializable{
 	private BigDecimal codeLevel;
 	private List regionSet = new ArrayList();
 
-	public List getRegionSet(){
+	public List getRegionSet() {
 		return regionSet;
 	}
 
-	public BigDecimal getCodeLevel(){
+	public BigDecimal getCodeLevel() {
 		return codeLevel;
 	}
 
-	public void setCodeLevel(BigDecimal codeLevel){
+	public void setCodeLevel(BigDecimal codeLevel) {
 		this.codeLevel = codeLevel;
 	}
 
-	public String getCodePath(){
+	public String getCodePath() {
 		return codePath;
 	}
 
-	public void setCodePath(String codePath){
+	public void setCodePath(String codePath) {
 		this.codePath = codePath;
 	}
 
-	public void setRegionSet(List regionSet){
+	public void setRegionSet(List regionSet) {
 		this.regionSet = regionSet;
 	}
 
-	public void addRegionSet(Regoin region){
+	public void addRegionSet(Regoin region) {
 		this.regionSet.add(region);
 	}
 
-	public String getParentId(){
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId){
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
-	public String getId(){
+	public String getId() {
 		return id;
 	}
 
-	public void setId(String id){
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getNodeName(){
+	public String getNodeName() {
 		return nodeName;
 	}
 
-	public void setNodeName(String nodeName){
+	public void setNodeName(String nodeName) {
 		this.nodeName = nodeName;
 	}
 
-	public BigDecimal getSeqNo(){
+	public BigDecimal getSeqNo() {
 		return seqNo;
 	}
 
-	public void setSeqNo(BigDecimal seqNo){
+	public void setSeqNo(BigDecimal seqNo) {
 		this.seqNo = seqNo;
 	}
 
-	public String getNationalCode(){
+	public String getNationalCode() {
 		return nationalCode;
 	}
 
-	public void setNationalCode(String nationalCode){
+	public void setNationalCode(String nationalCode) {
 		this.nationalCode = nationalCode;
 	}
 
-	public String getNodeType(){
+	public String getNodeType() {
 		return nodeType;
 	}
 
-	public void setNodeType(String nodeType){
+	public void setNodeType(String nodeType) {
 		this.nodeType = nodeType;
 	}
 
-	public BigDecimal getVersionNo(){
+	public BigDecimal getVersionNo() {
 		return versionNo;
 	}
 
-	public void setVersionNo(BigDecimal versionNo){
+	public void setVersionNo(BigDecimal versionNo) {
 		this.versionNo = versionNo;
 	}
 
-	public String toString(){
-		return new ToStringBuilder(this).append("id", getId()).append(
-				"nodeName", getNodeName()).append("parentId", getParentId())
-				.append("versionNo", getVersionNo()).toString();
+	public String toString() {
+		return new ToStringBuilder(this).append("id", getId()).append("nodeName", getNodeName())
+				.append("parentId", getParentId()).append("versionNo", getVersionNo()).toString();
 	}
 
-	public int hashCode(){
+	public int hashCode() {
 		return super.hashCode();
 	}
 
