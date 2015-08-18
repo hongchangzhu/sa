@@ -6,24 +6,27 @@ import com.analysis.dao.RegionDaoImpl;
 import com.analysis.dao.TermDaoImpl;
 import com.analysis.po.QueryCondition;
 import com.analysis.po.Regoin;
+import com.analysis.po.School;
+import com.analysis.utils.Config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.red.crm.MetadataServiceUtils;
 
 public class TermServiceImpl {
 	public String fromObject2Json(String regionId) {
 		TermDaoImpl dao = new TermDaoImpl();
 		List list = dao.getAllTermByRegionId(regionId);
-		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-				.create();
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String jsonData = g.toJson(list);
 		return jsonData;
 	}
 
 	/**
-	 * ¸üÖÕ¶Ë»®±íµÄÊı¾İ£¬ÏÈÉ¾³ıÔÙ²åÈë
+	 * æ›´ç»ˆç«¯åˆ’è¡¨çš„æ•°æ®ï¼Œå…ˆåˆ é™¤å†æ’å…¥
 	 * 
 	 * @param regionId
-	 *            ÏØid
+	 *            å¿id
 	 * @param schoolType
 	 */
 	public void updateAll(String regionId, String schoolType) {
@@ -37,26 +40,52 @@ public class TermServiceImpl {
 		String cityId = cond.getCityid();
 		String provinceId = cond.getProvinceid();
 		// System.out.println(provinceId);
-		String schoolType = "JXD";
+		// String schoolType = "JXD";
+		String schoolType = Config.getValue("store", "schoolType");
+
 		RegionDaoImpl daoImpl = new RegionDaoImpl();
 		List<Regoin> list = null;
 		if (countryId != null && !"".equals(countryId.trim())) {
-			this.updateAll(countryId, schoolType);// ÏØ
+			this.updateAll(countryId, schoolType);// å¿
 		} else if (cityId != null && !"".equals(cityId.trim())) {
-			// ÕÒ³öÊĞÏÂµÄËùÓĞÏØ
+			// æ‰¾å‡ºå¸‚ä¸‹çš„æ‰€æœ‰å¿
 			list = daoImpl.getUnderline(cityId);
 			for (Regoin country : list) {
 				this.updateAll(country.getId(), schoolType);
 			}
-		} else if (provinceId != null && !"".equals(provinceId.trim())) {// ÕÒ³öÊ¡ÏÂµÄËùÓĞÏØ
+		} else if (provinceId != null && !"".equals(provinceId.trim())) {// æ‰¾å‡ºçœä¸‹çš„æ‰€æœ‰å¿
 			list = daoImpl.getAllCountryByProvinceId(provinceId);
 			for (Regoin country : list) {
 				this.updateAll(country.getId(), schoolType);
 			}
-		} else {// ÕÒ³öËùÓĞµÄÏØ
+		} else {// æ‰¾å‡ºæ‰€æœ‰çš„å¿
 			list = daoImpl.getAllCountry();
 			for (Regoin country : list) {
 				this.updateAll(country.getId(), schoolType);
+			}
+		}
+	}
+
+	// ç»ˆç«¯æ•°æ®è¡¨æ›´
+	public void updateSchoolLog() {
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String schoolType = Config.getValue("store", "schoolType");
+		RegionDaoImpl daoImpl = new RegionDaoImpl();
+		TermDaoImpl termDaoImpl = new TermDaoImpl();
+		List<String> idList = daoImpl.getAllRegoinId();
+		int count = 0;
+		for (String id : idList) {
+			String jsonData = MetadataServiceUtils.getSchoolList(id, schoolType);
+			// System.out.println("ç»ˆç«¯æ•°æ®ï¼š" + jsonData);
+			List<School> list = g.fromJson(jsonData, new TypeToken<List<School>>() {
+			}.getType());
+			if (list == null || list.isEmpty())
+				continue;
+			termDaoImpl.patchDelete(list, schoolType);
+			termDaoImpl.patchSave(list);
+			count++;
+			if (count == 100) {
+				break;
 			}
 		}
 	}

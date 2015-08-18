@@ -27,26 +27,26 @@ public class MetadataServiceUtils {
 	public static String trustStorePw = "mis123mis";
 	public static String keyStoreFile = "D:\\metadata\\clientKeystore.jks";
 	public static String trustStoreFile = "D:\\metadata\\clientTruststore.jks";
-	public static String appName = "test";
-	public static String appPassWord = "123456";
+	public static String appName = "jiaoxuedian";
+	public static String appPassWord = "76UYjhMN";
 	public static Integer port = 443;
 	static {
 		keyStoreFile = Config.getValue("store", "keyStoreFile");
 		trustStoreFile = Config.getValue("store", "trustStoreFile");
+		appName = Config.getValue("store", "httppost.appname");
+		appPassWord = Config.getValue("store", "httppost.apppassword");
+		URL = Config.getValue("store", "httppost.url");
 	}
 
 	public static String getRemotData(Map<String, String> mapParams) {
 		String resultStr = null;
+		DefaultHttpClient httpclient = new DefaultHttpClient();
 		try {
-			DefaultHttpClient httpclient = new DefaultHttpClient();
 			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-			KeyStore trustStore = KeyStore.getInstance(KeyStore
-					.getDefaultType());
+			KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
 
-			FileInputStream keyStoreIn = new FileInputStream(new File(
-					keyStoreFile));
-			FileInputStream trustStoreIn = new FileInputStream(new File(
-					trustStoreFile));
+			FileInputStream keyStoreIn = new FileInputStream(new File(keyStoreFile));
+			FileInputStream trustStoreIn = new FileInputStream(new File(trustStoreFile));
 			try {
 				keyStore.load(keyStoreIn, keyStorePw.toCharArray());
 				trustStore.load(trustStoreIn, trustStorePw.toCharArray());
@@ -56,16 +56,14 @@ public class MetadataServiceUtils {
 				trustStoreIn.close();
 			}
 
-			SSLSocketFactory socketFactory = new SSLSocketFactory(keyStore,
-					keyStorePw, trustStore);
+			SSLSocketFactory socketFactory = new SSLSocketFactory(keyStore, keyStorePw, trustStore);
 			Scheme sch = new Scheme("https", port, socketFactory);
 			httpclient.getConnectionManager().getSchemeRegistry().register(sch);
 			HttpPost httpPost = new HttpPost(URL);
-			System.out.println(httpPost.getRequestLine());
+			System.out.println(httpPost.getRequestLine() + ". *** Query Paramters:" + mapParams);
 			HttpRequestBase httpRequest = null;
 			AbstractHttpEntity entity = null;
-			entity = new StringEntity(JSONObject.fromObject(mapParams)
-					.toString());
+			entity = new StringEntity(JSONObject.fromObject(mapParams).toString());
 			entity.setContentType("application/json");
 			if (entity != null) {
 				entity.setContentEncoding("UTF-8");
@@ -79,10 +77,11 @@ public class MetadataServiceUtils {
 			if (status == 200) {
 				resultStr = EntityUtils.toString(httpResponse.getEntity());
 			}
-			httpclient.getConnectionManager().shutdown();
 			return resultStr;
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
 		}
 
 		return resultStr;
@@ -121,7 +120,7 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * »ñÈ¡Ñ§Ğ£Êı¾İ
+	 * è·å–å­¦æ ¡æ•°æ®
 	 * 
 	 * @param strURL
 	 * @return
@@ -130,20 +129,34 @@ public class MetadataServiceUtils {
 		Map<String, String> mapParams = new LinkedHashMap<String, String>();
 
 		mapParams.put("method", "getSchoolList");
-		mapParams.put("appName", "djg-jxd");
-		mapParams.put("appPassWord", "8433575");
+		// mapParams.put("appName", "djg-jxd");
+		// mapParams.put("appPassWord", "8433575");
+		mapParams.put("appName", appName);
+		mapParams.put("appPassWord", appPassWord);
 		mapParams.put("areaId", areaId);
 		mapParams.put("schoolType", schoolType);
 		return getRemotData(mapParams);
 	}
 
+	public static String getSchoolLogList(String areaId, String schoolType) {
+		Map<String, String> mapParams = new LinkedHashMap<String, String>();
+
+		mapParams.put("method", "getSchoolLog");
+		mapParams.put("appName", appName);
+		mapParams.put("appPassWord", appPassWord);
+		mapParams.put("vNo", "0");
+		mapParams.put("areaId", areaId);
+		mapParams.put("schoolType", "JJ");
+		return getRemotData(mapParams);
+	}
+
 	/**
-	 * »ñÈ¡Ñ§¿ÆÊı¾İ
+	 * è·å–å­¦ç§‘æ•°æ®
 	 * 
 	 * @param areaId
 	 * @param schoolType
-	 * @return [ { "subjectName": "Ğ¡Ñ§¿ÆÑ§", "subjectId":
-	 *         "402880e42e13953c012e139823860000" }, { "subjectName": "Ğ¡Ñ§ÒôÀÖ",
+	 * @return [ { "subjectName": "å°å­¦ç§‘å­¦", "subjectId":
+	 *         "402880e42e13953c012e139823860000" }, { "subjectName": "å°å­¦éŸ³ä¹",
 	 *         "subjectId": "402880e42e13953c012e13983f8a0001" } ]
 	 * 
 	 */
@@ -156,12 +169,13 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * »ñÈ¡½Ì²Ä°æ±¾ÁĞ±í
+	 * è·å–æ•™æç‰ˆæœ¬åˆ—è¡¨
 	 * 
 	 * @param subjectId
 	 * @return [ { "versionId": "A48D400A-8638-29D2-23CA-7147B2B8DB9A",
-	 *         "versionName": "½Ì¿Æ°æ£¨2001£©" }, { "versionId":
-	 *         "F9787500-C457-8634-53EA-19144DE0C376", "versionName": "ËÕ½Ì¿Î±ê°æ" } ]
+	 *         "versionName": "æ•™ç§‘ç‰ˆï¼ˆ2001ï¼‰" }, { "versionId":
+	 *         "F9787500-C457-8634-53EA-19144DE0C376", "versionName": "è‹æ•™è¯¾æ ‡ç‰ˆ" }
+	 *         ]
 	 * 
 	 */
 	public static String getPubVerList(String subjectId) {
@@ -175,15 +189,15 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * »ñÈ¡Ä³½Ì²ÄÕÂ½Ú,½âÎöÊ±Ö»È¥parentIdÎª-1µÄÊı¾İ
+	 * è·å–æŸæ•™æç« èŠ‚,è§£ææ—¶åªå»parentIdä¸º-1çš„æ•°æ®
 	 * 
 	 * @param versionId
-	 * @return [ { "parentId": "-1", "bookCatelogName": "Ò»Äê¼¶", "bookCatelogId":
+	 * @return [ { "parentId": "-1", "bookCatelogName": "ä¸€å¹´çº§", "bookCatelogId":
 	 *         "7faa2586-975e-4d7d-8483-da43caad6e8e" }, { "parentId":
 	 *         "7faa2586-975e-4d7d-8483-da43caad6e8e", "bookCatelogName":
-	 *         "Ò»Äê¼¶ÉÏ", "bookCatelogId": "78E80063-C1DD-646E-10C1-5045983761EF" }, {
-	 *         "parentId": "78E80063-C1DD-646E-10C1-5045983761EF",
-	 *         "bookCatelogName": "µÚÒ»µ¥Ôª ÎÒÃÇ°®¿ÆÑ§", "bookCatelogId":
+	 *         "ä¸€å¹´çº§ä¸Š", "bookCatelogId": "78E80063-C1DD-646E-10C1-5045983761EF"
+	 *         }, { "parentId": "78E80063-C1DD-646E-10C1-5045983761EF",
+	 *         "bookCatelogName": "ç¬¬ä¸€å•å…ƒ æˆ‘ä»¬çˆ±ç§‘å­¦", "bookCatelogId":
 	 *         "B12111D3-59EB-801B-00F2-39E36319DB21" } ]
 	 * 
 	 */

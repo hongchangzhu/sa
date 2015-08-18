@@ -13,6 +13,8 @@ public class School implements Serializable {
 	private BigDecimal vNo;
 	private String XXJGBXLXM3;
 
+	private ResrecInfo resrecInfo;
+
 	public String getSchoolId() {
 		return schoolId;
 	}
@@ -75,5 +77,20 @@ public class School implements Serializable {
 
 	public void setXXJGBXLXM3(String xxjgbxlxm3) {
 		XXJGBXLXM3 = xxjgbxlxm3;
+	}
+
+	/**
+	 * @return the resrecInfo
+	 */
+	public ResrecInfo getResrecInfo() {
+		return resrecInfo;
+	}
+
+	/**
+	 * @param resrecInfo
+	 *            the resrecInfo to set
+	 */
+	public void setResrecInfo(ResrecInfo resrecInfo) {
+		this.resrecInfo = resrecInfo;
 	}
 }

@@ -19,7 +19,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£ºÓÃ»§¸Õ½øÈëÍ³¼ÆÒ³ÃæÊ±Ä¬ÈÏ¿´µ½µÄÊÇ±±¾©µÄÊı¾İ£¬ÏÂÀ­¿òÒ²Ä¬ÈÏÏÔÊ¾±±¾©
+	 * @åŠŸèƒ½ï¼šç”¨æˆ·åˆšè¿›å…¥ç»Ÿè®¡é¡µé¢æ—¶é»˜è®¤çœ‹åˆ°çš„æ˜¯åŒ—äº¬çš„æ•°æ®ï¼Œä¸‹æ‹‰æ¡†ä¹Ÿé»˜è®¤æ˜¾ç¤ºåŒ—äº¬
 	 * 
 	 * @return
 	 */
@@ -30,7 +30,7 @@ public class RegionDaoImpl {
 		Regoin regoin = null;
 		try {
 			con = DBConnection.getConnection();
-			String insert = "select * from t_region t where t.parent_id='1' and t.node_name like '±±¾©%'";
+			String insert = "select * from t_region t where t.parent_id='1' and t.node_name like 'åŒ—äº¬%'";
 			stmt = con.prepareStatement(insert);
 			rs = stmt.executeQuery();
 
@@ -56,9 +56,34 @@ public class RegionDaoImpl {
 		return regoin;
 	}
 
+	public List<String> getAllRegoinId() {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<String> list = new ArrayList<String>();
+		try {
+			con = DBConnection.getConnection();
+			String sql = "select id from t_region t where t.ID != '1' ";
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(stmt);
+			DBConnection.closeConnection(con);
+		}
+		return list;
+	}
+
 	/**
 	 * 
-	 * @¹¦ÄÜ£º²éÑ¯codePath
+	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢codePath
 	 * 
 	 * @param id
 	 * @return
@@ -91,7 +116,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£º²éÑ¯Regoin
+	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢Regoin
 	 * 
 	 * @param id
 	 * @return
@@ -131,7 +156,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£º²éÑ¯ËùÓĞÏÂ¼¶µÄĞĞÕşÇø»®
+	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢æ‰€æœ‰ä¸‹çº§çš„è¡Œæ”¿åŒºåˆ’
 	 * 
 	 * @param pid
 	 * @return
@@ -167,7 +192,7 @@ public class RegionDaoImpl {
 	}
 
 	/**
-	 * »ñÈ¡Ò»¸öÊ¡ÏÂÃæËùÓĞµÄÏØ
+	 * è·å–ä¸€ä¸ªçœä¸‹é¢æ‰€æœ‰çš„å¿
 	 * 
 	 * @param provinceId
 	 * @return
@@ -234,24 +259,24 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£ºµ÷ÓÃÔ¶³Ì½Ó¿Ú»ñÈ¡ĞĞÕşÇø»®Êı¾İ²¢±£´æÔÚ±¾µØÊı¾İ¿â
+	 * @åŠŸèƒ½ï¼šè°ƒç”¨è¿œç¨‹æ¥å£è·å–è¡Œæ”¿åŒºåˆ’æ•°æ®å¹¶ä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“
 	 * 
 	 */
 	public int saveAll() {
-		// Ô¶³Ìµ÷ÓÃ·şÎñ»ñÈ¡ĞĞÕşÇø»®Êı¾İ,·µ»ØµÄÊÇjson¸ñÊ½×Ö·û´®
-		String jsonData = MetadataServiceUtils.getAreaList();
-		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-				.create();
-		// °Ñjson¸ñÊ½×Ö·û´®Êı¾İ×ª»»Îª¶ÔÏó¼¯ºÏ,È»ºó±£´æÔÚ±¾µØÊı¾İ¿âÖĞ
-		List<Regoin> list = g.fromJson(jsonData, new TypeToken<List<Regoin>>() {
-		}.getType());
+
 		Connection con = null;
 		PreparedStatement stmt = null;
-		int count = 0;// ¼ÇÂ¼Êı
-		if (list != null)
-			count = list.size();
+		int count = 0;// è®°å½•æ•°
 		// ResultSet rs = null;
 		try {
+			// è¿œç¨‹è°ƒç”¨æœåŠ¡è·å–è¡Œæ”¿åŒºåˆ’æ•°æ®,è¿”å›çš„æ˜¯jsonæ ¼å¼å­—ç¬¦ä¸²
+			String jsonData = MetadataServiceUtils.getAreaList();
+			Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			// æŠŠjsonæ ¼å¼å­—ç¬¦ä¸²æ•°æ®è½¬æ¢ä¸ºå¯¹è±¡é›†åˆ,ç„¶åä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“ä¸­
+			List<Regoin> list = g.fromJson(jsonData, new TypeToken<List<Regoin>>() {
+			}.getType());
+			if (list != null)
+				count = list.size();
 			con = DBConnection.getConnection();
 			con.setAutoCommit(false);
 			String insert = "insert into t_region(id,parent_id,node_name,v_no,node_type,seq_no,national_code,code_path,code_level)"
@@ -274,7 +299,6 @@ public class RegionDaoImpl {
 				stmt.execute();
 			}
 			con.commit();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -288,7 +312,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£ºÉ¾³ıĞĞÕşÇø»®±íÖĞµÄËùÓĞÊı¾İ
+	 * @åŠŸèƒ½ï¼šåˆ é™¤è¡Œæ”¿åŒºåˆ’è¡¨ä¸­çš„æ‰€æœ‰æ•°æ®
 	 * 
 	 */
 	public void deleteAll() {

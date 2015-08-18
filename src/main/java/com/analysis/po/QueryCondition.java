@@ -17,6 +17,7 @@ public class QueryCondition implements Serializable {
 	private String date1;
 	private String date2;
 	private String opttypeid;// 操作类型
+	private String resclickcount;
 	private String isExport = "0";// 0表示不是导出的条件，1表示是导出到excel的条件
 
 	/** 作为后台管理的统计条件 start */
@@ -117,6 +118,8 @@ public class QueryCondition implements Serializable {
 
 	public void setCityid(String cityid) {
 		this.cityid = cityid;
+		if ("-".equals(cityid))
+			this.cityid = "";
 	}
 
 	public String getClassid() {
@@ -133,6 +136,8 @@ public class QueryCondition implements Serializable {
 
 	public void setCountryid(String countryid) {
 		this.countryid = countryid;
+		if ("-".equals(countryid))
+			this.countryid = "";
 	}
 
 	public String getProvinceid() {
@@ -141,6 +146,8 @@ public class QueryCondition implements Serializable {
 
 	public void setProvinceid(String provinceid) {
 		this.provinceid = provinceid;
+		if ("-".equals(provinceid))
+			this.provinceid = "";
 	}
 
 	public String getSubjectid() {
@@ -157,6 +164,8 @@ public class QueryCondition implements Serializable {
 
 	public void setTermid(String termid) {
 		this.termid = termid;
+		if ("-".equals(termid))
+			this.termid = "";
 	}
 
 	public String getTimes() {
@@ -224,6 +233,21 @@ public class QueryCondition implements Serializable {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString();
+	}
+
+	/**
+	 * @return the resclickcount
+	 */
+	public String getResclickcount() {
+		return resclickcount;
+	}
+
+	/**
+	 * @param resclickcount
+	 *            the resclickcount to set
+	 */
+	public void setResclickcount(String resclickcount) {
+		this.resclickcount = resclickcount;
 	}
 
 }

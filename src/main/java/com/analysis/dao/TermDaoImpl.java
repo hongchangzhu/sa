@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.analysis.db.DBConnection;
+import com.analysis.po.ResrecInfo;
 import com.analysis.po.School;
 import com.analysis.po.Term;
 import com.google.gson.Gson;
@@ -49,26 +50,40 @@ public class TermDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£ºµ÷ÓÃÔ¶³Ì½Ó¿Ú»ñÈ¡ÖÕ¶ËÊı¾İ²¢±£´æÔÚ±¾µØÊı¾İ¿â
+	 * @åŠŸèƒ½ï¼šè°ƒç”¨è¿œç¨‹æ¥å£è·å–ç»ˆç«¯æ•°æ®å¹¶ä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“
 	 * 
 	 */
 	public void saveAll(String regionId, String schoolType) {
-		// Ô¶³Ìµ÷ÓÃ·şÎñ»ñÈ¡ÖÕ¶ËÊı¾İ,·µ»ØµÄÊÇjson¸ñÊ½×Ö·û´®
-		String jsonData = MetadataServiceUtils.getSchoolList(regionId,
-				schoolType);
-		// System.out.println(jsonData);
-		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-				.create();
-		// °Ñjson¸ñÊ½×Ö·û´®Êı¾İ×ª»»Îª¶ÔÏó¼¯ºÏ,È»ºó±£´æÔÚ±¾µØÊı¾İ¿âÖĞ
-		List<School> list = g.fromJson(jsonData, new TypeToken<List<School>>() {
-		}.getType());
+		try {
+			// è¿œç¨‹è°ƒç”¨æœåŠ¡è·å–ç»ˆç«¯æ•°æ®,è¿”å›çš„æ˜¯jsonæ ¼å¼å­—ç¬¦ä¸²
+			String jsonData = MetadataServiceUtils.getSchoolList(regionId,
+					schoolType);
+			// System.out.println("term data:" + jsonData);
+			Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
+					.create();
+			// æŠŠjsonæ ¼å¼å­—ç¬¦ä¸²æ•°æ®è½¬æ¢ä¸ºå¯¹è±¡é›†åˆ,ç„¶åä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“ä¸­
+			List<School> list = g.fromJson(jsonData,
+					new TypeToken<List<School>>() {
+					}.getType());
+			if (list == null || list.isEmpty())
+				return;
+			this.patchSave(list);
+
+		} catch (Exception e) {
+			// e.printStackTrace();
+		}
+	}
+
+	public void patchSave(List<School> list) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
 			con = DBConnection.getConnection();
 			con.setAutoCommit(false);
-			String insert = "insert into t_term(term_id,term_name,province_id,city_id,regoin_id,school_type,version_no,xxjgbxlxm3)"
-					+ " values(?,?,?,?,?,?,?,?)";
+			String insert = "insert into t_term(term_id,term_name,province_id,city_id,regoin_id,school_type,version_no,xxjgbxlxm3,"
+					+ "resrec_wx,resrec_wx_mac,resrec_net,resrec_net_mac,resrec_net_rtype,resrec_net_mac2,resrec_net_rtype2,resrec_net_mac3,resrec_net_rtype3,"
+					+ "resrec_userphone,resrec_address,resrec_useremail,resrec_zipcode,resrec_username,resrec_userqq)"
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			stmt = con.prepareStatement(insert);
 			for (School school : list) {
 				stmt.setString(1, school.getSchoolId());
@@ -79,14 +94,32 @@ public class TermDaoImpl {
 				stmt.setString(6, school.getSchoolType());
 				stmt.setBigDecimal(7, school.getVNo());
 				stmt.setString(8, school.getXXJGBXLXM3());
+
+				ResrecInfo resrecInfo = school.getResrecInfo();
+				if (resrecInfo != null) {
+					stmt.setBigDecimal(9, resrecInfo.getResrec_wx());
+					stmt.setString(10, resrecInfo.getResrec_wx_mac());
+					stmt.setBigDecimal(11, resrecInfo.getResrec_net());
+					stmt.setString(12, resrecInfo.getResrec_net_mac());
+					stmt.setString(13, resrecInfo.getResrec_net_rtype());
+					stmt.setString(14, resrecInfo.getResrec_net_mac2());
+					stmt.setString(15, resrecInfo.getResrec_net_rtype2());
+					stmt.setString(16, resrecInfo.getResrec_net_mac3());
+					stmt.setString(17, resrecInfo.getResrec_net_rtype3());
+
+					stmt.setString(18, resrecInfo.getResrec_userphone());
+					stmt.setString(19, resrecInfo.getResrec_address());
+					stmt.setString(20, resrecInfo.getResrec_useremail());
+
+					stmt.setString(21, resrecInfo.getResrec_zipcode());
+					stmt.setString(22, resrecInfo.getResrec_username());
+					stmt.setString(23, resrecInfo.getResrec_userqq());
+				}
 				stmt.execute();
 			}
 			con.commit();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			// e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -95,7 +128,7 @@ public class TermDaoImpl {
 
 	/**
 	 * 
-	 * @¹¦ÄÜ£ºÉ¾³ıÖÕ¶Ë±íÖĞµÄËùÓĞÊı¾İ
+	 * @åŠŸèƒ½ï¼šåˆ é™¤ç»ˆç«¯è¡¨ä¸­çš„æ‰€æœ‰æ•°æ®
 	 * 
 	 */
 	public void deleteAll(String regionId, String schoolType) {
@@ -108,6 +141,32 @@ public class TermDaoImpl {
 			stmt = con.prepareStatement(delete);
 			stmt.setString(1, regionId);
 			stmt.setString(2, schoolType);
+
+			stmt.execute();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(stmt);
+			DBConnection.closeConnection(con);
+		}
+	}
+
+	public void patchDelete(List<School> list, String schoolType) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+			con = DBConnection.getConnection();
+			con.setAutoCommit(false);
+			String delete = "delete from t_term where regoin_id=? and school_type=?";
+			stmt = con.prepareStatement(delete);
+
+			for (School school : list) {
+				stmt.setString(1, school.getSchoolId());
+				stmt.setString(2, schoolType);
+			}
 
 			stmt.execute();
 			con.commit();
