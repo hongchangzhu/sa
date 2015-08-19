@@ -8,18 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.analysis.db.DBConnection;
 import com.analysis.po.Regoin;
+import com.framework.dao.CommonDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.red.crm.MetadataServiceUtils;
 
-public class RegionDaoImpl {
+@Repository("regionDao")
+public class RegionDaoImpl extends CommonDao {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šç”¨æˆ·åˆšè¿›å…¥ç»Ÿè®¡é¡µé¢æ—¶é»˜è®¤çœ‹åˆ°çš„æ˜¯åŒ—äº¬çš„æ•°æ®ï¼Œä¸‹æ‹‰æ¡†ä¹Ÿé»˜è®¤æ˜¾ç¤ºåŒ—äº¬
+	 * @¹¦ÄÜ£ºÓÃ»§¸Õ½øÈëÍ³¼ÆÒ³ÃæÊ±Ä¬ÈÏ¿´µ½µÄÊÇ±±¾©µÄÊı¾İ£¬ÏÂÀ­¿òÒ²Ä¬ÈÏÏÔÊ¾±±¾©
 	 * 
 	 * @return
 	 */
@@ -29,9 +33,11 @@ public class RegionDaoImpl {
 		ResultSet rs = null;
 		Regoin regoin = null;
 		try {
-			con = DBConnection.getConnection();
-			String insert = "select * from t_region t where t.parent_id='1' and t.node_name like 'åŒ—äº¬%'";
-			stmt = con.prepareStatement(insert);
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
+			String sql = "select * from t_region t where t.parent_id='1' and t.node_name like '±±¾©%'";
+			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -45,9 +51,7 @@ public class RegionDaoImpl {
 				regoin.setNationalCode(rs.getString(7));
 				break;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
@@ -62,7 +66,9 @@ public class RegionDaoImpl {
 		ResultSet rs = null;
 		List<String> list = new ArrayList<String>();
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String sql = "select id from t_region t where t.ID != '1' ";
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -74,6 +80,9 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -83,7 +92,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢codePath
+	 * @¹¦ÄÜ£º²éÑ¯codePath
 	 * 
 	 * @param id
 	 * @return
@@ -94,7 +103,9 @@ public class RegionDaoImpl {
 		ResultSet rs = null;
 		String codePath = null;
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String sql = "select code_path from t_region t where t.id=?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, id);
@@ -107,6 +118,9 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -116,7 +130,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢Regoin
+	 * @¹¦ÄÜ£º²éÑ¯Regoin
 	 * 
 	 * @param id
 	 * @return
@@ -127,7 +141,9 @@ public class RegionDaoImpl {
 		ResultSet rs = null;
 		Regoin regoin = null;
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String sql = "select * from t_region t where t.id=?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, id);
@@ -147,6 +163,9 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -156,7 +175,7 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šæŸ¥è¯¢æ‰€æœ‰ä¸‹çº§çš„è¡Œæ”¿åŒºåˆ’
+	 * @¹¦ÄÜ£º²éÑ¯ËùÓĞÏÂ¼¶µÄĞĞÕşÇø»®
 	 * 
 	 * @param pid
 	 * @return
@@ -168,7 +187,9 @@ public class RegionDaoImpl {
 		List<Regoin> list = new ArrayList<Regoin>();
 		Regoin regoin = null;
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String insert = "select id,parent_id,node_name,v_no,node_type,seq_no,national_code from t_region t where t.parent_id=? order by t.seq_no";
 			stmt = con.prepareStatement(insert);
 			stmt.setString(1, pid);
@@ -184,6 +205,44 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(stmt);
+			DBConnection.closeConnection(con);
+		}
+		return list;
+	}
+
+	public List<Regoin> getAllUnderline(String codePath) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Regoin> list = new ArrayList<Regoin>();
+		Regoin regoin = null;
+		try {
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
+			String insert = "select id,parent_id,node_name,v_no,node_type,seq_no,national_code from t_region t where t.CODE_PATH like ? order by t.seq_no";
+			stmt = con.prepareStatement(insert);
+			stmt.setString(1, codePath + "%");
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				regoin = new Regoin();
+				regoin.setId(rs.getString(1));
+				regoin.setNodeName(rs.getString(3));
+				list.add(regoin);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -192,7 +251,7 @@ public class RegionDaoImpl {
 	}
 
 	/**
-	 * è·å–ä¸€ä¸ªçœä¸‹é¢æ‰€æœ‰çš„å¿
+	 * »ñÈ¡Ò»¸öÊ¡ÏÂÃæËùÓĞµÄÏØ
 	 * 
 	 * @param provinceId
 	 * @return
@@ -204,7 +263,9 @@ public class RegionDaoImpl {
 		List<Regoin> list = new ArrayList<Regoin>();
 		Regoin regoin = null;
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String insert = "select t1.id,t1.node_name from t_region t1, t_region t2 "
 					+ "where t1.node_type='0' and t1.code_path like concat(t2.code_path,'%') and t2.id=?";
 			stmt = con.prepareStatement(insert);
@@ -221,6 +282,9 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -235,7 +299,9 @@ public class RegionDaoImpl {
 		List<Regoin> list = new ArrayList<Regoin>();
 		Regoin regoin = null;
 		try {
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
+			con.setAutoCommit(false);
 			String insert = "select t1.id,t1.node_name from t_region t1 where t1.node_type='0' ";
 			stmt = con.prepareStatement(insert);
 			rs = stmt.executeQuery();
@@ -250,6 +316,8 @@ public class RegionDaoImpl {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
 			DBConnection.closeConnection(con);
@@ -259,28 +327,29 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šè°ƒç”¨è¿œç¨‹æ¥å£è·å–è¡Œæ”¿åŒºåˆ’æ•°æ®å¹¶ä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“
+	 * @¹¦ÄÜ£ºµ÷ÓÃÔ¶³Ì½Ó¿Ú»ñÈ¡ĞĞÕşÇø»®Êı¾İ²¢±£´æÔÚ±¾µØÊı¾İ¿â
 	 * 
 	 */
 	public int saveAll() {
-
 		Connection con = null;
 		PreparedStatement stmt = null;
-		int count = 0;// è®°å½•æ•°
+		int count = 0;// ¼ÇÂ¼Êı
 		// ResultSet rs = null;
 		try {
-			// è¿œç¨‹è°ƒç”¨æœåŠ¡è·å–è¡Œæ”¿åŒºåˆ’æ•°æ®,è¿”å›çš„æ˜¯jsonæ ¼å¼å­—ç¬¦ä¸²
+			// Ô¶³Ìµ÷ÓÃ·şÎñ»ñÈ¡ĞĞÕşÇø»®Êı¾İ,·µ»ØµÄÊÇjson¸ñÊ½×Ö·û´®
 			String jsonData = MetadataServiceUtils.getAreaList();
 			Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-			// æŠŠjsonæ ¼å¼å­—ç¬¦ä¸²æ•°æ®è½¬æ¢ä¸ºå¯¹è±¡é›†åˆ,ç„¶åä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“ä¸­
+			// °Ñjson¸ñÊ½×Ö·û´®Êı¾İ×ª»»Îª¶ÔÏó¼¯ºÏ,È»ºó±£´æÔÚ±¾µØÊı¾İ¿âÖĞ
 			List<Regoin> list = g.fromJson(jsonData, new TypeToken<List<Regoin>>() {
 			}.getType());
 			if (list != null)
 				count = list.size();
-			con = DBConnection.getConnection();
+			// con = DBConnection.getConnection();
+			con = CommonDao.getConnection();
 			con.setAutoCommit(false);
 			String insert = "insert into t_region(id,parent_id,node_name,v_no,node_type,seq_no,national_code,code_path,code_level)"
 					+ " values(?,?,?,?,?,?,?,?,?)";
+
 			stmt = con.prepareStatement(insert);
 			String codePath = null;
 			BigDecimal codeLevel = null;
@@ -299,9 +368,7 @@ public class RegionDaoImpl {
 				stmt.execute();
 			}
 			con.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(stmt);
@@ -312,26 +379,27 @@ public class RegionDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šåˆ é™¤è¡Œæ”¿åŒºåˆ’è¡¨ä¸­çš„æ‰€æœ‰æ•°æ®
+	 * @¹¦ÄÜ£ºÉ¾³ıĞĞÕşÇø»®±íÖĞµÄËùÓĞÊı¾İ
 	 * 
 	 */
 	public void deleteAll() {
-		Connection con = null;
-		PreparedStatement stmt = null;
+		// Connection con = null;
+		// PreparedStatement stmt = null;
 		try {
-			con = DBConnection.getConnection();
-			con.setAutoCommit(false);
-			String delete = "delete from t_region";
-			stmt = con.prepareStatement(delete);
-			stmt.execute();
-			con.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			// this.delete("t_region", "", null);
+			this.execute("delete from t_region");
+			// con = DBConnection.getConnection();
+			// con = CommonDao.getConnection();
+			// con.setAutoCommit(false);
+			// String delete = "delete from t_region";
+			// stmt = con.prepareStatement(delete);
+			// stmt.execute();
+			// con.commit();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnection.close(stmt);
-			DBConnection.closeConnection(con);
+			// DBConnection.close(stmt);
+			// DBConnection.closeConnection(con);
 		}
 	}
 }

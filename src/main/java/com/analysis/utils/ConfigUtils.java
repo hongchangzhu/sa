@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-public class Config {
+public class ConfigUtils {
 	private static ResourceBundle bundle;
 	private static Map<String, ResourceBundle> configMap = new HashMap<String, ResourceBundle>();
 

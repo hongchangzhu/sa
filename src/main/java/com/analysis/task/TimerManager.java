@@ -7,18 +7,18 @@ import java.util.Timer;
 public class TimerManager {
 
 	public TimerManager() {
-		// å‡Œæ™¨2ç‚¹æ‰§è¡Œ
+		// Áè³¿2µãÖ´ĞĞ
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, 2);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		Date time = calendar.getTime();
 
-		long period = 24 * 60 * 60 * 1000;// é—´éš”24å°æ—¶æ‰§è¡Œ
+		long period = 24 * 60 * 60 * 1000;// ¼ä¸ô24Ğ¡Ê±Ö´ĞĞ
 
 		Timer timer = new Timer();
 		TermTimerTask task = new TermTimerTask();
-		// å®‰æ’æŒ‡å®šçš„ä»»åŠ¡åœ¨æŒ‡å®šçš„æ—¶é—´å¼€å§‹è¿›è¡Œé‡å¤çš„å›ºå®šå»¶è¿Ÿæ‰§è¡Œã€‚
+		// °²ÅÅÖ¸¶¨µÄÈÎÎñÔÚÖ¸¶¨µÄÊ±¼ä¿ªÊ¼½øĞĞÖØ¸´µÄ¹Ì¶¨ÑÓ³ÙÖ´ĞĞ¡£
 		timer.schedule(task, time, period);
 	}
 

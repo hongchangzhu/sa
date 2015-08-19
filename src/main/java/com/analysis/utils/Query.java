@@ -43,15 +43,15 @@ public class Query {
 	}
 
 	private boolean isEmpty(String str) {
-		if (str == null || "".equals(str.trim()) || "-".equals(str.trim()) || "null".equals(str.trim())
-				|| "undefined".equals(str.trim()))
+		if (str == null || "".equals(str.trim()) || "-".equals(str.trim())
+				|| "null".equals(str.trim()) || "undefined".equals(str.trim()))
 			return true;
 		return false;
 	}
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šæ‹¼è£…ç»Ÿè®¡æŸ¥è¯¢sql
+	 * @¹¦ÄÜ£ºÆ´×°Í³¼Æ²éÑ¯sql
 	 * 
 	 * @param cond
 	 * @return
@@ -64,7 +64,8 @@ public class Query {
 		String codePath = null;
 		StringBuffer sb = new StringBuffer();
 		sb.append("select t4.resource_id, t4.resource_name, t4.totalnum ");
-		sb.append("from (select distinct t.resource_id, t0.resource_name, t.totalnum ");
+		sb
+				.append("from (select distinct t.resource_id, t0.resource_name, t.totalnum ");
 		sb.append("from t_term_resource_relation_11 t0,");
 		sb.append("(select t1.resource_id, sum(t1.opt_count) totalnum ");
 
@@ -90,18 +91,19 @@ public class Query {
 			condParams.add(termId);
 		}
 
-		String code = codePath.substring(0, 2);// çœç¼–ç 
-		// å®šä½è¡¨
-		sb.append("from t_term_resource_relation_").append(code).append(" t1, t_term t2, t_region t3 ");
+		String code = codePath.substring(0, 2);// Ê¡±àÂë
+		// ¶¨Î»±í
+		sb.append("from t_term_resource_relation_").append(code).append(
+				" t1, t_term t2, t_region t3 ");
 
-		// å­¦ç§‘
+		// Ñ§¿Æ
 		String subjectId = cond.getSubjectid();
 		if (!isEmpty(subjectId)) {
 			innerCond.append("and t1.subject_id = ? ");
 			condParams.add(subjectId);
 		}
 
-		// å¹´çº§
+		// Äê¼¶
 		String classId = cond.getClassid();
 		if (!isEmpty(classId)) {
 			innerCond.append("and t1.class_id = ? ");
@@ -110,12 +112,13 @@ public class Query {
 
 		String date1 = null;
 		String date2 = null;
-		String times = cond.getTimes();// æŒ‰æ—¶é—´ç»Ÿè®¡
-		if (times != null && "1".equals(times.trim())) {// æŒ‰å‘¨æœŸç»Ÿè®¡
+		String times = cond.getTimes();// °´Ê±¼äÍ³¼Æ
+		if (times != null && "1".equals(times.trim())) {// °´ÖÜÆÚÍ³¼Æ
 			String weekyear = cond.getWeekyear();
 			String week = cond.getWeek();
-			// å¹´å’ŒæœŸæ•°è¦éƒ½æœ‰å€¼æ‰ä½œä¸ºæ¡ä»¶ç»Ÿè®¡
-			if (weekyear != null && !"".equals(weekyear.trim()) && !"-1".equals(weekyear.trim()) && week != null
+			// ÄêºÍÆÚÊıÒª¶¼ÓĞÖµ²Å×÷ÎªÌõ¼şÍ³¼Æ
+			if (weekyear != null && !"".equals(weekyear.trim())
+					&& !"-1".equals(weekyear.trim()) && week != null
 					&& !"".equals(week.trim()) && !"-1".equals(week.trim())) {
 				int yearnum = new Integer(weekyear).intValue();
 				int weeknum = new Integer(week).intValue();
@@ -125,37 +128,44 @@ public class Query {
 				// ");//oracle
 				// innerCond.append("and to_char(t1.opt_time,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
 				// date_format(t.birthday,'%Y-%m-%d')>='1987-01-21'; ;mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}
-		} else if (times != null && "2".equals(times.trim())) {// æŒ‰æ—¶é—´æ®µç»Ÿè®¡
+		} else if (times != null && "2".equals(times.trim())) {// °´Ê±¼ä¶ÎÍ³¼Æ
 			date1 = cond.getDate1();
 			date2 = cond.getDate2();
-			if (date1 != null && !"".equals(date1.trim()) && date2 != null && !"".equals(date2.trim())) {
+			if (date1 != null && !"".equals(date1.trim()) && date2 != null
+					&& !"".equals(date2.trim())) {
 				// innerCond.append("and to_char(t1.opt_time,'yyyy-mm-dd') >= ?
 				// ");//oracle
 				// innerCond.append("and to_char(t1.opt_time,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}
-		} else if (times != null && "3".equals(times.trim())) {// æŒ‰å­¦æœŸ ç»Ÿè®¡
+		} else if (times != null && "3".equals(times.trim())) {// °´Ñ§ÆÚ Í³¼Æ
 			String semesteryear = cond.getSemesteryear();
 			String semester = cond.getSemester();
-			if (semesteryear != null && !"".equals(semesteryear.trim()) && !"-1".equals(semesteryear.trim())
-					&& semester != null && !"".equals(semester.trim()) && !"-1".equals(semester.trim())) {
+			if (semesteryear != null && !"".equals(semesteryear.trim())
+					&& !"-1".equals(semesteryear.trim()) && semester != null
+					&& !"".equals(semester.trim())
+					&& !"-1".equals(semester.trim())) {
 				int year = new Integer(semesteryear).intValue();
 				int nextyear = year + 1;
-				// ä¸Šå­¦æœŸæ—¶é—´è·¨åº¦ä¸ºå½“å¹´çš„8æœˆ1æ—¥åˆ°ä¸‹å¹´çš„1æœˆ31æ—¥
+				// ÉÏÑ§ÆÚÊ±¼ä¿ç¶ÈÎªµ±ÄêµÄ8ÔÂ1ÈÕµ½ÏÂÄêµÄ1ÔÂ31ÈÕ
 				if (Constant.UP_SEMESTER.equals(semester)) {
 					date1 = year + "-08-01";
 					date2 = (year + 1) + "-01-31";
-				} else if (Constant.DOWN_SEMESTER.equals(semester)) {// ä¸‹å­¦æœŸæ—¶é—´è·¨åº¦ä¸ºä¸‹å¹´çš„2æœˆ1æ—¥åˆ°7æœˆ31æ—¥
+				} else if (Constant.DOWN_SEMESTER.equals(semester)) {// ÏÂÑ§ÆÚÊ±¼ä¿ç¶ÈÎªÏÂÄêµÄ2ÔÂ1ÈÕµ½7ÔÂ31ÈÕ
 					date1 = (year + 1) + "-02-01";
 					date2 = (year + 1) + "-07-31";
 				}
@@ -163,8 +173,10 @@ public class Query {
 				// ");//oracle
 				// innerCond.append("and to_char(t1.opt_time,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.opt_time,'%Y-%m-%d') <= ? ");// mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}
@@ -180,7 +192,7 @@ public class Query {
 		return sb.toString();
 	}
 
-	// ç»Ÿè®¡èµ„æºæ€»æ•°
+	// Í³¼Æ×ÊÔ´×ÜÊı
 	public String getStatResCount(QueryCondition cond, int start, int pageSize) {
 		String termId = cond.getTermid();
 		String countryId = cond.getCountryid();
@@ -191,7 +203,8 @@ public class Query {
 		String codePath = null;
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT sr.adddate,tm.TERM_NAME,tm.regoinname,sr.restotal ");
-		sb.append("FROM t_stat_res_1001 sr INNER JOIN v_term_mac_map tm ON sr.macid=tm.macid ");
+		sb
+				.append("FROM t_stat_res_1001 sr INNER JOIN v_term_mac_map tm ON sr.macid=tm.macid ");
 		// sb.append("INNER JOIN t_term te ON tm.termid=te.TERM_ID ");
 		// .append("INNER JOIN t_region re ON te.REGOIN_ID=re.ID ");
 		// sb.append("INNER JOIN t_region re1 ON te.PROVINCE_ID = re1.ID ");
@@ -237,7 +250,7 @@ public class Query {
 		return sb.toString();
 	}
 
-	// èµ„æºæ´»è·ƒåº¦
+	// ×ÊÔ´»îÔ¾¶È
 	public String getResActivity(QueryCondition cond, int start, int pageSize) {
 		String termId = cond.getTermid();
 		String countryId = cond.getCountryid();
@@ -268,9 +281,11 @@ public class Query {
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT v.TERM_NAME,v.regoinname,c.ckt FROM (");
 		sb.append("SELECT a.macid,(a.ckt - IFNULL(b.ckt, 0)) ckt FROM (");
-		sb.append("SELECT t.macid,MAX(t.clicktotal) ckt FROM t_stat_res_1002 t WHERE t.adddate <= ? GROUP BY t.macid) a ");
+		sb
+				.append("SELECT t.macid,MAX(t.clicktotal) ckt FROM t_stat_res_1002 t WHERE t.adddate <= ? GROUP BY t.macid) a ");
 		sb.append("LEFT OUTER JOIN (");
-		sb.append("SELECT t.macid, MAX(t.clicktotal) ckt FROM t_stat_res_1002 t WHERE t.adddate < ? GROUP BY t.macid) b ");
+		sb
+				.append("SELECT t.macid, MAX(t.clicktotal) ckt FROM t_stat_res_1002 t WHERE t.adddate < ? GROUP BY t.macid) b ");
 		sb.append("ON a.macid = b.macid) c ");
 		sb.append("INNER JOIN v_term_mac_map v ON c.macid = v.macid ");
 		sb.append("WHERE c.ckt >= " + ccnt + " ");
@@ -308,8 +323,9 @@ public class Query {
 		return sb.toString();
 	}
 
-	// çƒ­é—¨èµ„æºç‚¹å‡»æ•°
-	public String getHotResClickCount(QueryCondition cond, int start, int pageSize) {
+	// ÈÈÃÅ×ÊÔ´µã»÷Êı
+	public String getHotResClickCount(QueryCondition cond, int start,
+			int pageSize) {
 		String startdate = cond.getDate1();
 		String enddate = cond.getDate2();
 		if (this.isDate(startdate)) {
@@ -327,7 +343,8 @@ public class Query {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT v.resname,v.respath,a.ckcnt ");
-		sb.append("FROM (SELECT t.resid,SUM(t.clickcount) ckcnt FROM t_stat_res_1003 t WHERE t.adddate >= ? AND t.adddate <= ? GROUP BY t.resid) a ");
+		sb
+				.append("FROM (SELECT t.resid,SUM(t.clickcount) ckcnt FROM t_stat_res_1003 t WHERE t.adddate >= ? AND t.adddate <= ? GROUP BY t.resid) a ");
 
 		sb.append("INNER JOIN v_res_map v ON a.resid = v.resid ");
 		countSQL = "SELECT COUNT(*) FROM (" + sb.toString() + ") ct ";
@@ -348,7 +365,7 @@ public class Query {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šæ‹¼è£…ç»Ÿè®¡æœªå¼€æœºæŸ¥è¯¢sql
+	 * @¹¦ÄÜ£ºÆ´×°Í³¼ÆÎ´¿ª»ú²éÑ¯sql
 	 * 
 	 * @param cond
 	 * @return
@@ -381,12 +398,13 @@ public class Query {
 
 		String date1 = null;
 		String date2 = null;
-		String times = cond.getTimes();// æŒ‰æ—¶é—´ç»Ÿè®¡
-		if (times != null && "1".equals(times.trim())) {// æŒ‰å‘¨æœŸç»Ÿè®¡
+		String times = cond.getTimes();// °´Ê±¼äÍ³¼Æ
+		if (times != null && "1".equals(times.trim())) {// °´ÖÜÆÚÍ³¼Æ
 			String weekyear = cond.getWeekyear();
 			String week = cond.getWeek();
-			// å¹´å’ŒæœŸæ•°è¦éƒ½æœ‰å€¼æ‰ä½œä¸ºæ¡ä»¶ç»Ÿè®¡
-			if (weekyear != null && !"".equals(weekyear.trim()) && !"-1".equals(weekyear.trim()) && week != null
+			// ÄêºÍÆÚÊıÒª¶¼ÓĞÖµ²Å×÷ÎªÌõ¼şÍ³¼Æ
+			if (weekyear != null && !"".equals(weekyear.trim())
+					&& !"-1".equals(weekyear.trim()) && week != null
 					&& !"".equals(week.trim()) && !"-1".equals(week.trim())) {
 				int yearnum = new Integer(weekyear).intValue();
 				int weeknum = new Integer(week).intValue();
@@ -398,38 +416,45 @@ public class Query {
 				// innerCond
 				// .append("and to_char(t1.check_date,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}
-		} else if (times != null && "2".equals(times.trim())) {// æŒ‰æ—¶é—´æ®µç»Ÿè®¡
+		} else if (times != null && "2".equals(times.trim())) {// °´Ê±¼ä¶ÎÍ³¼Æ
 			date1 = cond.getDate1();
 			date2 = cond.getDate2();
-			if (date1 != null && !"".equals(date1.trim()) && date2 != null && !"".equals(date2.trim())) {
+			if (date1 != null && !"".equals(date1.trim()) && date2 != null
+					&& !"".equals(date2.trim())) {
 				// innerCond
 				// .append("and to_char(t1.check_date,'yyyy-mm-dd') >= ?
 				// ");//oracle
 				// innerCond
 				// .append("and to_char(t1.check_date,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}
-		} else if (times != null && "3".equals(times.trim())) {// æŒ‰å­¦æœŸ ç»Ÿè®¡
+		} else if (times != null && "3".equals(times.trim())) {// °´Ñ§ÆÚ Í³¼Æ
 			String semesteryear = cond.getSemesteryear();
 			String semester = cond.getSemester();
-			if (semesteryear != null && !"".equals(semesteryear.trim()) && !"-1".equals(semesteryear.trim())
-					&& semester != null && !"".equals(semester.trim()) && !"-1".equals(semester.trim())) {
+			if (semesteryear != null && !"".equals(semesteryear.trim())
+					&& !"-1".equals(semesteryear.trim()) && semester != null
+					&& !"".equals(semester.trim())
+					&& !"-1".equals(semester.trim())) {
 				int year = new Integer(semesteryear).intValue();
 				int nextyear = year + 1;
-				// ä¸Šå­¦æœŸæ—¶é—´è·¨åº¦ä¸ºå½“å¹´çš„8æœˆ1æ—¥åˆ°ä¸‹å¹´çš„1æœˆ31æ—¥
+				// ÉÏÑ§ÆÚÊ±¼ä¿ç¶ÈÎªµ±ÄêµÄ8ÔÂ1ÈÕµ½ÏÂÄêµÄ1ÔÂ31ÈÕ
 				if (Constant.UP_SEMESTER.equals(semester)) {
 					date1 = year + "-08-01";
 					date2 = (year + 1) + "-01-31";
-				} else if (Constant.DOWN_SEMESTER.equals(semester)) {// ä¸‹å­¦æœŸæ—¶é—´è·¨åº¦ä¸ºä¸‹å¹´çš„2æœˆ1æ—¥åˆ°7æœˆ31æ—¥
+				} else if (Constant.DOWN_SEMESTER.equals(semester)) {// ÏÂÑ§ÆÚÊ±¼ä¿ç¶ÈÎªÏÂÄêµÄ2ÔÂ1ÈÕµ½7ÔÂ31ÈÕ
 					date1 = (year + 1) + "-02-01";
 					date2 = (year + 1) + "-07-31";
 				}
@@ -439,8 +464,10 @@ public class Query {
 				// innerCond
 				// .append("and to_char(t1.check_date,'yyyy-mm-dd') <= ?
 				// ");//oracle
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
-				innerCond.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') >= ? ");// mysql
+				innerCond
+						.append("and date_format(t1.check_date,'%Y-%m-%d') <= ? ");// mysql
 				condParams.add(date1);
 				condParams.add(date2);
 			}

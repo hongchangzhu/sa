@@ -1,4 +1,4 @@
-﻿.mini-button
+.mini-button
 {
     border-radius: 2px; 
 }
@@ -96,12 +96,12 @@ body .mini-button-disabled, body a:hover.mini-button-disabled
 
 
 /*----------------------------------- textbox ----------------------------------*/
-.mini-textbox-border
+.mini-textbox-input
 {
     background:white url(images/buttonedit/text-bg.gif) repeat-x 0px top;
 	border:solid 1px #b5b8c8;        
 }
-body .mini-textbox-focus .mini-textbox-border
+body .mini-textbox-focus .mini-textbox-input
 {
     border-color: #7eadd9;
 }
@@ -181,7 +181,6 @@ body .mini-buttonedit-focus .mini-buttonedit-border
     background:url(images/tools/expand.gif) no-repeat 50% 50%;
 }
 
-
 /*----------------------------- window -------------------------*/
 .mini-window .mini-panel-header
 {
@@ -191,15 +190,6 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 {
     background:#D3E1F1;
 }
-.mini-tools-max
-{
-	background:url(images/tools/max.gif) no-repeat;
-}
-.mini-tools-restore
-{
-	background:url(images/tools/restore.gif) no-repeat;
-}
-
 
 /*------------------- navbar ------------------*/
 .mini-outlookbar-border
@@ -408,7 +398,7 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 /*------------------- treegrid --------------------*/
 .mini-treegrid-border
 {
-    border-color:#98c0f4;
+    border:1px solid #98c0f4;
 }
 
 .mini-treegrid-header
@@ -421,11 +411,12 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 }
 .mini-treegrid td
 {
-    border-color:#d0d0d0;    
+    border-right:solid 1px #d0d0d0;
+    border-bottom:solid 1px #d0d0d0;        
 }
 .mini-treegrid-header td
 {
-    border-color:#d0d0d0;
+    border-right:solid 1px #d0d0d0;
 }
 
 .mini-treegrid-selectedNode
@@ -500,12 +491,6 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 }
     
 /*---------------------- tabs -----------------------------*/
-
-.mini-tabs-scrollCt
-{
-    border-color:#8CB2E2;
-    background:#f0f0f0 url(images/toolbar/toolbar.gif) repeat-x 0 0;
-}
 
 .mini-tabs-leftButton, .mini-tabs-rightButton
 {
@@ -605,7 +590,7 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 /*---------------------- tree -----------------------------*/
 
 
-.mini-tree-node-hover .mini-tree-nodeshow
+.mini-tree-hottrack .mini-tree-node-hover
 {
     background:url(images/tree/button.gif) repeat-x 0px 50%;
 	border:solid 1px #b5afaf;		  
@@ -628,7 +613,18 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 {
     background-image:url(images/tree/folder-open.gif);
 }
-
+.mini-tree-post
+{
+    background-image:url(images/tree/post_img.gif);
+}
+.mini-tree-dept
+{
+    background-image:url(images/tree/dept_img.gif);
+}
+.mini-tree-emp
+{
+    background-image:url(images/tree/emp_img.gif);
+}
 /*------------------- grid --------------------*/
 .mini-grid-border
 {
@@ -649,15 +645,10 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
     border-color:#d0d0d0;
     border-bottom-color:#d0d0d0;
 }
-.mini-grid-footer, .mini-grid-pager
+.mini-grid-footer
 {
     border-top:solid 1px #99bce8;    
     background:url(images/grid/footer.gif) repeat-x scroll left top #d4e2f1;
-}
-.mini-grid-columnproxy
-{
-    background:url(images/grid/header.gif) repeat-x scroll left top #e2e4e6;
-    border:#c5c5c5 1px solid;    
 }
 
 

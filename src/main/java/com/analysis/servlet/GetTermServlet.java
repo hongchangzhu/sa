@@ -26,6 +26,7 @@ public class GetTermServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("gbk");
 		resp.setContentType("text/html; charset=gbk");
+		long begin = System.currentTimeMillis();
 		String submitJSON = req.getParameter("submitData");
 		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();
@@ -34,6 +35,9 @@ public class GetTermServlet extends HttpServlet {
 				}.getType());
 		TermServiceImpl serviceImpl = new TermServiceImpl();
 		serviceImpl.updateTermByRegion(cond);
+		long end = System.currentTimeMillis();
+		System.out.println("更新终端站点数据花费时间：" + (end - begin) + "ms.");
+
 		resp.getWriter().write("1");
 	}
 

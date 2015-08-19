@@ -1,36 +1,38 @@
 package com.analysis.po;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class QueryCondition implements Serializable {
-	private String provinceid;// çœid
-	private String cityid;// å¸‚id
-	private String countryid;// å¿id
-	private String termid;// ç»ˆç«¯id
-	private String times;// ç»Ÿè®¡æœŸé—´åˆ†ç±»id
-	private String weekyear;// å‘¨æœŸ å¹´
-	private String week;// å‘¨
-	private String semesteryear;// å­¦æœŸ å¹´
-	private String semester;// å­¦æœŸ
-	private String classid;// å¹´çº§id
-	private String subjectid;// å­¦ç§‘id
+	private String provinceid;// Ê¡id
+	private String cityid;// ÊĞid
+	private String countryid;// ÏØid
+	private String termid;// ÖÕ¶Ëid
+	private String times;// Í³¼ÆÆÚ¼ä·ÖÀàid
+	private String weekyear;// ÖÜÆÚ Äê
+	private String week;// ÖÜ
+	private String semesteryear;// Ñ§ÆÚ Äê
+	private String semester;// Ñ§ÆÚ
+	private String classid;// Äê¼¶id
+	private String subjectid;// Ñ§¿Æid
 	private String date1;
 	private String date2;
-	private String opttypeid;// æ“ä½œç±»å‹
+	private String opttypeid;// ²Ù×÷ÀàĞÍ
 	private String resclickcount;
-	private String isExport = "0";// 0è¡¨ç¤ºä¸æ˜¯å¯¼å‡ºçš„æ¡ä»¶ï¼Œ1è¡¨ç¤ºæ˜¯å¯¼å‡ºåˆ°excelçš„æ¡ä»¶
+	private String isExport = "0";// 0±íÊ¾²»ÊÇµ¼³öµÄÌõ¼ş£¬1±íÊ¾ÊÇµ¼³öµ½excelµÄÌõ¼ş
 
-	/** ä½œä¸ºåå°ç®¡ç†çš„ç»Ÿè®¡æ¡ä»¶ start */
+	/** ×÷ÎªºóÌ¨¹ÜÀíµÄÍ³¼ÆÌõ¼ş start */
 	private String restype;
 	private String reststat;
 	private String date3;
 	private String date4;
 	private String weekyear2;
 	private String week2;
-	private String classid2;// å¹´çº§id
-	private String subjectid2;// å­¦ç§‘id
+	private String classid2;// Äê¼¶id
+	private String subjectid2;// Ñ§¿Æid
 
-	/** ä½œä¸ºåå°ç®¡ç†çš„ç»Ÿè®¡æ¡ä»¶ end */
+	/** ×÷ÎªºóÌ¨¹ÜÀíµÄÍ³¼ÆÌõ¼ş end */
 
 	public String getRestype() {
 		return restype;

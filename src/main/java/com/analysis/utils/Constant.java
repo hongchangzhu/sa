@@ -1,11 +1,11 @@
 package com.analysis.utils;
 
-public class Constant {
-	public static final String UP_SEMESTER = "1";// ä¸Šå­¦æœŸ
-	public static final String DOWN_SEMESTER = "1";// ä¸‹å­¦æœŸ
+public class Constant{
+	public static final String UP_SEMESTER = "1";// ÉÏÑ§ÆÚ
+	public static final String DOWN_SEMESTER = "1";// ÏÂÑ§ÆÚ
 
-	public static String TAKE_OVER_TYPE = "1";// å·²æ¥æ”¶
-	public static String UN_BOOT_STRAP_TYPE = "2";// æœªå¼€æœº
-	public static String CLICKED_COUNT_TYPE = "3";// ç‚¹å‡»é‡
-	public static String DOWNLOAD_COUNT_TYPE = "4";// ä¸‹è½½é‡
+	public static String TAKE_OVER_TYPE = "1";// ÒÑ½ÓÊÕ
+	public static String UN_BOOT_STRAP_TYPE = "2";// Î´¿ª»ú
+	public static String CLICKED_COUNT_TYPE = "3";// µã»÷Á¿
+	public static String DOWNLOAD_COUNT_TYPE = "4";// ÏÂÔØÁ¿
 }

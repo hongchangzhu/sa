@@ -1,14 +1,12 @@
 package com.analysis.task;
 
 import java.util.Date;
-import java.util.TimerTask;
 
 import com.analysis.service.TermServiceImpl;
 import com.analysis.utils.DateTool;
 
-public class TermTimerTask extends TimerTask {
-	@Override
-	public void run() {
+public class TermJob {
+	public void doBiz() throws Exception {
 		System.out
 				.println("/*********************终端数据开始更新************************/");
 		try {

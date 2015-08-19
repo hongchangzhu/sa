@@ -5,66 +5,66 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * åº”ç”¨ç³»ç»Ÿè‡ªå®šä¹‰ç¼“å­˜ç±»
+ * Ó¦ÓÃÏµÍ³×Ô¶¨Òå»º´æÀà
  * 
  * @author DELL
  */
 @SuppressWarnings("unchecked")
-public class Cache extends HashMap {
+public class Cache extends HashMap{
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private int maxSize;
 	public static Cache instance;
 	private static Map stat;
-	static {
+	static{
 		stat = new HashMap();
 		instance = getCache("default", 1000);
 	}
 
 	/**
-	 * èŽ·å–å½“å‰çš„åº”ç”¨ç³»ç»Ÿç¼“å­˜å¯¹è±¡
+	 * »ñÈ¡µ±Ç°µÄÓ¦ÓÃÏµÍ³»º´æ¶ÔÏó
 	 * 
 	 * @param name
-	 *            ï¼šç¼“å­˜åç§°
+	 *            £º»º´æÃû³Æ
 	 * @param maxSize
-	 *            ï¼šç¼“å­˜å¤§å°
+	 *            £º»º´æ´óÐ¡
 	 * @return
 	 */
-	public static Cache getCache(String name, int maxSize) {
+	public static Cache getCache(String name, int maxSize){
 		Cache cache = null;
-		if (stat.containsKey(name)) {
+		if(stat.containsKey(name)){
 			cache = (Cache) stat.get(name);
-		} else {
+		}else{
 			cache = new Cache(name, maxSize);
 		}
 		return cache;
 	}
 
 	/**
-	 * æž„é€ å‡½æ•°ç§æœ‰åŒ–ï¼Œä¸¥ç¦å¤–éƒ¨å®žä¾‹åŒ–è¯¥ç±»
+	 * ¹¹Ôìº¯ÊýË½ÓÐ»¯£¬ÑÏ½ûÍâ²¿ÊµÀý»¯¸ÃÀà
 	 * 
 	 * @param name
 	 * @param i
 	 */
-	private Cache(String name, int i) {
+	private Cache(String name, int i){
 		super();
 		this.name = name;
 		this.maxSize = i;
 	}
 
 	/**
-	 * è®¾ç½®åº”ç”¨ç¼“å­˜æ•°æ®å†…å®¹
+	 * ÉèÖÃÓ¦ÓÃ»º´æÊý¾ÝÄÚÈÝ
 	 * 
 	 * @param key
-	 *            ï¼šåº”ç”¨ç¼“å­˜åç§°
+	 *            £ºÓ¦ÓÃ»º´æÃû³Æ
 	 * @param value
-	 *            ï¼šç¼“å­˜å†…å®¹
+	 *            £º»º´æÄÚÈÝ
 	 * @return
 	 */
-	public Object set(Object key, Object value) {
-		if (this.size() >= this.maxSize) {
+	public Object set(Object key, Object value){
+		if(this.size() >= this.maxSize){
 			Iterator it = this.keySet().iterator();
-			while (it.hasNext() && this.size() >= this.maxSize) {
+			while(it.hasNext() && this.size() >= this.maxSize){
 				this.remove(it.next());
 				it = this.keySet().iterator();
 			}

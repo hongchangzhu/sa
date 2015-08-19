@@ -18,12 +18,12 @@ public class TermResourceDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šç»Ÿè®¡
+	 * @¹¦ÄÜ£ºÍ³¼Æ
 	 * 
 	 * @param sql
-	 *            é¢„ç¼–è¯‘sql
+	 *            Ô¤±àÒësql
 	 * @param condParams
-	 *            æ¡ä»¶é›†åˆ
+	 *            Ìõ¼ş¼¯ºÏ
 	 * @return
 	 */
 	public List stat(String sql, List condParams) {
@@ -62,23 +62,25 @@ public class TermResourceDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šä¿å­˜ç»ˆç«¯ä¸Šçš„èµ„æº
+	 * @¹¦ÄÜ£º±£´æÖÕ¶ËÉÏµÄ×ÊÔ´
 	 * 
 	 * @param relation
-	 *            ç»ˆç«¯æ•°æ®
+	 *            ÖÕ¶ËÊı¾İ
 	 * @param optType
-	 *            æ“ä½œç±»å‹ 1å·²æ¥æ”¶ï¼Œ2æœªå¼€æœºï¼Œ3ç‚¹å‡»é‡ï¼Œ4ä¸‹è½½é‡
+	 *            ²Ù×÷ÀàĞÍ 1ÒÑ½ÓÊÕ£¬2Î´¿ª»ú£¬3µã»÷Á¿£¬4ÏÂÔØÁ¿
 	 * @param code
-	 *            çœç¼–ç 
+	 *            Ê¡±àÂë
 	 */
-	public void saveAll(TermResourceRelation relation, String optType, String code) {
+	public void saveAll(TermResourceRelation relation, String optType,
+			String code) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		String tableName = "t_term_resource_relation_" + code;
 		try {
 			con = DBConnection.getConnection();
 			con.setAutoCommit(false);
-			String insert = "insert into " + tableName
+			String insert = "insert into "
+					+ tableName
 					+ "(resource_id,resource_name,term_id,subject_id,class_id,opt_count,opt_type,opt_time)"
 					+ " values(?,?,?,?,?,?,?,?)";
 			stmt = con.prepareStatement(insert);
@@ -106,7 +108,7 @@ public class TermResourceDaoImpl {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šå–å‰ä¸¤ä½çœä»£ç 
+	 * @¹¦ÄÜ£ºÈ¡Ç°Á½Î»Ê¡´úÂë
 	 * 
 	 * @param termId
 	 * @return

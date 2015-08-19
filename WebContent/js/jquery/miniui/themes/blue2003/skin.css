@@ -27,12 +27,12 @@ body .mini-button-disabled, body a:hover.mini-button-disabled
 
 
 /*----------------------------------- textbox ----------------------------------*/
-.mini-textbox-border
+.mini-textbox-input
 {
     background:white;
 	border-color:#6a8ccb;        
 }
-body .mini-textbox-focus .mini-textbox-border
+body .mini-textbox-focus .mini-textbox-input
 {
     border-color: #6a8ccb;
 }
@@ -395,7 +395,7 @@ ffe7b6
 /*------------------- treegrid --------------------*/
 .mini-treegrid-border
 {
-    border-color:#6a8ccb;
+    border:1px solid #6a8ccb;
 }
 
 .mini-treegrid-header
@@ -408,11 +408,12 @@ ffe7b6
 }
 .mini-treegrid td
 {
-    border-color:#6291c9;    
+    border-right:solid 1px #6291c9;
+    border-bottom:solid 1px #6291c9;        
 }
 .mini-treegrid-header td
 {
-    border-color:#6a8ccb;
+    border-right:solid 1px #6a8ccb;
 }
 
 .mini-treegrid-selectedNode
@@ -442,12 +443,6 @@ ffe7b6
 }
 
 /*---------------------- tabs -----------------------------*/
-
-.mini-tabs-scrollCt
-{
-    border-color:#002d96;
-    background:#c3daf9 url(images/toolbar/header.gif) repeat-y 0 0;
-}
 
 .mini-tabs-leftButton, .mini-tabs-rightButton
 {
@@ -548,7 +543,7 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 
 /*---------------------- tree -----------------------------*/
 
-.mini-tree-node-hover .mini-tree-nodeshow
+.mini-tree-hottrack .mini-tree-node-hover
 {	    
 	background:#ffeec2;
 	border:solid 1px #002d96;
@@ -626,9 +621,9 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
     border-right:#6291c9 1px solid;
     border-bottom:#6291c9 1px solid;
 }
-.mini-grid-footer, .mini-grid-pager
+.mini-grid-footer
 {
-    background:#81a9e2;
+    background:#E7EAEE url(images/grid/footer.png) repeat-x 0 0;
 }
 .mini-grid-detailCell
 {    
@@ -652,6 +647,10 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 {
 	border-right:#6291c9 1px solid;
     border-bottom:#6291c9 1px solid;
+}
+.mini-grid-footer
+{
+    background:#81a9e2;
 }
 .mini-grid-filterRow .mini-grid-table, .mini-grid-summaryRow .mini-grid-table {
     background: none repeat scroll 0 0 #ddecfe;

@@ -18,7 +18,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.analysis.utils.Config;
+import com.framework.config.BasePropertyConfigurer;
 
 public class MetadataServiceUtils {
 
@@ -31,11 +31,16 @@ public class MetadataServiceUtils {
 	public static String appPassWord = "76UYjhMN";
 	public static Integer port = 443;
 	static {
-		keyStoreFile = Config.getValue("store", "keyStoreFile");
-		trustStoreFile = Config.getValue("store", "trustStoreFile");
-		appName = Config.getValue("store", "httppost.appname");
-		appPassWord = Config.getValue("store", "httppost.apppassword");
-		URL = Config.getValue("store", "httppost.url");
+		keyStoreFile = BasePropertyConfigurer.getInstance().getString("keyStoreFile");// Config.getValue("store",
+																						// "keyStoreFile");
+		trustStoreFile = BasePropertyConfigurer.getInstance().getString("trustStoreFile");// Config.getValue("store",
+																							// "trustStoreFile");
+		appName = BasePropertyConfigurer.getInstance().getString("httppost.appname");// Config.getValue("store",
+																						// "httppost.appname");
+		appPassWord = BasePropertyConfigurer.getInstance().getString("httppost.apppassword");// Config.getValue("store",
+																								// "httppost.apppassword");
+		URL = BasePropertyConfigurer.getInstance().getString("httppost.url");// Config.getValue("store",
+																				// "httppost.url");
 	}
 
 	public static String getRemotData(Map<String, String> mapParams) {
@@ -120,7 +125,7 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * 获取学校数据
+	 * ��ȡѧУ���
 	 * 
 	 * @param strURL
 	 * @return
@@ -151,12 +156,12 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * 获取学科数据
+	 * ��ȡѧ�����
 	 * 
 	 * @param areaId
 	 * @param schoolType
-	 * @return [ { "subjectName": "小学科学", "subjectId":
-	 *         "402880e42e13953c012e139823860000" }, { "subjectName": "小学音乐",
+	 * @return [ { "subjectName": "Сѧ��ѧ", "subjectId":
+	 *         "402880e42e13953c012e139823860000" }, { "subjectName": "Сѧ����",
 	 *         "subjectId": "402880e42e13953c012e13983f8a0001" } ]
 	 * 
 	 */
@@ -169,12 +174,12 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * 获取教材版本列表
+	 * ��ȡ�̲İ汾�б�
 	 * 
 	 * @param subjectId
 	 * @return [ { "versionId": "A48D400A-8638-29D2-23CA-7147B2B8DB9A",
-	 *         "versionName": "教科版（2001）" }, { "versionId":
-	 *         "F9787500-C457-8634-53EA-19144DE0C376", "versionName": "苏教课标版" }
+	 *         "versionName": "�̿ư棨2001��" }, { "versionId":
+	 *         "F9787500-C457-8634-53EA-19144DE0C376", "versionName": "�ս̿α��" }
 	 *         ]
 	 * 
 	 */
@@ -189,15 +194,15 @@ public class MetadataServiceUtils {
 	}
 
 	/**
-	 * 获取某教材章节,解析时只去parentId为-1的数据
+	 * ��ȡĳ�̲��½�,����ʱֻȥparentIdΪ-1�����
 	 * 
 	 * @param versionId
-	 * @return [ { "parentId": "-1", "bookCatelogName": "一年级", "bookCatelogId":
+	 * @return [ { "parentId": "-1", "bookCatelogName": "һ�꼶", "bookCatelogId":
 	 *         "7faa2586-975e-4d7d-8483-da43caad6e8e" }, { "parentId":
 	 *         "7faa2586-975e-4d7d-8483-da43caad6e8e", "bookCatelogName":
-	 *         "一年级上", "bookCatelogId": "78E80063-C1DD-646E-10C1-5045983761EF"
+	 *         "һ�꼶��", "bookCatelogId": "78E80063-C1DD-646E-10C1-5045983761EF"
 	 *         }, { "parentId": "78E80063-C1DD-646E-10C1-5045983761EF",
-	 *         "bookCatelogName": "第一单元 我们爱科学", "bookCatelogId":
+	 *         "bookCatelogName": "��һ��Ԫ ���ǰ���ѧ", "bookCatelogId":
 	 *         "B12111D3-59EB-801B-00F2-39E36319DB21" } ]
 	 * 
 	 */

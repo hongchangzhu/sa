@@ -14,8 +14,24 @@ public class School implements Serializable, IBean {
 	private String schoolType;
 	private BigDecimal vNo;
 	private String XXJGBXLXM3;
+	private String optType;
 
 	private ResrecInfo resrecInfo;
+
+	/**
+	 * @return the optType
+	 */
+	public String getOptType() {
+		return optType;
+	}
+
+	/**
+	 * @param optType
+	 *            the optType to set
+	 */
+	public void setOptType(String optType) {
+		this.optType = optType;
+	}
 
 	public String getSchoolId() {
 		return schoolId;

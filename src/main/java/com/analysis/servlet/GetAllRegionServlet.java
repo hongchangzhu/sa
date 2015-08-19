@@ -23,9 +23,11 @@ public class GetAllRegionServlet extends HttpServlet {
 		request.setCharacterEncoding("gbk");
 		response.setContentType("text/html; charset=gbk");
 
+		long begin = System.currentTimeMillis();
 		RegoinServiceImpl serviceImpl = new RegoinServiceImpl();
 		int count = serviceImpl.updateAll();
-		//System.out.println(count);
+		long end = System.currentTimeMillis();
+		System.out.println("更新行政区划数据花费时间：" + (end - begin) + "ms.");
 		response.getWriter().write(count);
 	}
 

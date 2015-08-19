@@ -15,6 +15,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.analysis.po.QueryCondition;
 import com.analysis.service.SubjectServiceImpl;
+import com.framework.config.BasePropertyConfigurer;
 
 /**
  * 
@@ -22,7 +23,8 @@ import com.analysis.service.SubjectServiceImpl;
  * 
  */
 public class HttpRequestSevice {
-	public static final String URL = Config.getValue("store", "httpurl");;
+	public static final String URL = BasePropertyConfigurer.getInstance().getString("httpurl");// Config.getValue("store",
+																								// "httpurl");;
 
 	/**
 	 * @param args
@@ -31,7 +33,7 @@ public class HttpRequestSevice {
 
 	}
 
-	public static String getResponseResult(QueryCondition cond) {
+	public static String getResponseResult(QueryCondition cond) throws IOException {
 		String restype = cond.getRestype();
 		String reststat = cond.getReststat();
 		String subject = cond.getSubjectid2();
@@ -49,12 +51,12 @@ public class HttpRequestSevice {
 		String subjectName = "";
 		String gradeName = "";
 
-		// 资源上传
+		// ��Դ�ϴ�
 		if ("1".equals(restype)) {
-			// 资源上传条数
+			// ��Դ�ϴ�����
 			if ("1".equals(reststat)) {
 				method = "getUploadTotalCount";
-			} else if ("2".equals(reststat)) {// 资源上传总的容量
+			} else if ("2".equals(reststat)) {// ��Դ�ϴ��ܵ�����
 				method = "getUploadTotalSize";
 			}
 			nvps.add(new BasicNameValuePair("method", method));
@@ -69,23 +71,23 @@ public class HttpRequestSevice {
 				date4 = DateTool.DateToString(endDate, "yyyy-MM-dd HH:mm:ss");
 				nvps.add(new BasicNameValuePair("end", date4));
 			}
-		} else if ("2".equals(restype)) {// 资源初审
-			if ("1".equals(reststat)) {// 按学科统计
+		} else if ("2".equals(restype)) {// ��Դ����
+			if ("1".equals(reststat)) {// ��ѧ��ͳ��
 				subjectName = serviceImpl.getSubjectNameBySubjectId(subject);
 				nvps.add(new BasicNameValuePair("subject", subject));
 				method = "getFCheckSizeBySubject";
-				System.out.println("按学科统计初审资源，学科名称：" + subjectName);
-			} else if ("2".equals(reststat)) {// 按年级统计
+				System.out.println("��ѧ��ͳ�Ƴ�����Դ��ѧ����ƣ�" + subjectName);
+			} else if ("2".equals(reststat)) {// ���꼶ͳ��
 				subjectName = serviceImpl.getSubjectNameBySubjectId(subject);
 				gradeName = serviceImpl.getGradeNameByGradeId(gradeId);
 				nvps.add(new BasicNameValuePair("grade", gradeName));
 				method = "getFCheckSizeByGrade";
-				System.out.println("按年级统计初审资源，年级名称：" + gradeName);
-			} else if ("3".equals(reststat)) {// 按周期统计
+				System.out.println("���꼶ͳ�Ƴ�����Դ���꼶��ƣ�" + gradeName);
+			} else if ("3".equals(reststat)) {// ������ͳ��
 				nvps.add(new BasicNameValuePair("term", term));
 				method = "getFCheckSizeByTerm";
-				System.out.println("按周期统计初审资源，期数：" + term);
-			} else if ("4".equals(reststat)) {// 按时间统计
+				System.out.println("������ͳ�Ƴ�����Դ������" + term);
+			} else if ("4".equals(reststat)) {// ��ʱ��ͳ��
 				method = "getFCheckSizeByTime";
 				if (date3 != null && !"".equals(date3)) {
 					beginDate = DateTool.parseDate(date3, "yyyy-MM-dd");
@@ -98,23 +100,23 @@ public class HttpRequestSevice {
 					nvps.add(new BasicNameValuePair("end", date4));
 				}
 			}
-		} else if ("3".equals(restype)) {// 资源复审
-			if ("1".equals(reststat)) {// 按学科统计
+		} else if ("3".equals(restype)) {// ��Դ����
+			if ("1".equals(reststat)) {// ��ѧ��ͳ��
 				subjectName = serviceImpl.getSubjectNameBySubjectId(subject);
 				nvps.add(new BasicNameValuePair("subject", subjectName));
 				method = "getRCheckSizeBySubject";
-				System.out.println("按学科统计复审资源，学科名称：" + subjectName);
-			} else if ("2".equals(reststat)) {// 按年级统计
+				System.out.println("��ѧ��ͳ�Ƹ�����Դ��ѧ����ƣ�" + subjectName);
+			} else if ("2".equals(reststat)) {// ���꼶ͳ��
 				subjectName = serviceImpl.getSubjectNameBySubjectId(subject);
 				gradeName = serviceImpl.getGradeNameByGradeId(gradeId);
 				nvps.add(new BasicNameValuePair("grade", gradeName));
 				method = "getRCheckSizeByGrade";
-				System.out.println("按年级统计复审资源，年级名称：" + gradeName);
-			} else if ("3".equals(reststat)) {// 按周期统计
+				System.out.println("���꼶ͳ�Ƹ�����Դ���꼶��ƣ�" + gradeName);
+			} else if ("3".equals(reststat)) {// ������ͳ��
 				nvps.add(new BasicNameValuePair("term", term));
 				method = "getRCheckSizeByTerm";
-				System.out.println("按周期统计复审资源，期数：" + term);
-			} else if ("4".equals(reststat)) {// 按时间统计
+				System.out.println("������ͳ�Ƹ�����Դ������" + term);
+			} else if ("4".equals(reststat)) {// ��ʱ��ͳ��
 				method = "getRCheckSizeByTime";
 				if (date3 != null && !"".equals(date3)) {
 					beginDate = DateTool.parseDate(date3, "yyyy-MM-dd");
@@ -127,24 +129,32 @@ public class HttpRequestSevice {
 					nvps.add(new BasicNameValuePair("end", date4));
 				}
 			}
-		} else if ("4".equals(restype)) {// 调度任务
-
+		} else if ("4".equals(restype)) {// ��������
+			// ��Դ�ϴ�����
+			if ("1".equals(reststat)) {
+				method = "getUploadTotalCount";
+			} else if ("2".equals(reststat)) {// ��Դ�ϴ��ܵ�����
+				method = "getUploadTotalSize";
+			}
 		}
 		String resultStr = null;
+		DefaultHttpClient httpclient = new DefaultHttpClient();
 		try {
 			HttpPost httpPost = new HttpPost(URL);
 			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-			DefaultHttpClient httpclient = new DefaultHttpClient();
+
 			HttpResponse httpResponse = httpclient.execute(httpPost);
 			Integer status = httpResponse.getStatusLine().getStatusCode();
 			if (status == 200) {
 				resultStr = EntityUtils.toString(httpResponse.getEntity());
-				// System.out.println(resultStr);
 			}
-			httpclient.getConnectionManager().shutdown();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
 		}
+		if (resultStr == null)
+			return "";
 		resultStr = resultStr.replace("}", "");
 		resultStr += ", \"subjectName\":\"" + subjectName + "\", \"gradeName\":\"" + gradeName + "\"}";
 		return resultStr;

@@ -39,7 +39,8 @@ public class ExcelBuilder {
 		ExcelBuilder eb = new ExcelBuilder();
 		// eb.createHead(sheet, wb);
 		List list = new ArrayList();
-		Object[] objs = new Object[] { new BigDecimal(12), "����������˾", new BigDecimal(20) };
+		Object[] objs = new Object[] { new BigDecimal(12), "����������˾",
+				new BigDecimal(20) };
 		list.add(objs);
 		HSSFWorkbook wb = eb.createExcel(list, null);
 		// eb.writeDataToExcel(list, sheet, wb, 2);
@@ -86,7 +87,8 @@ public class ExcelBuilder {
 
 		int[] colors = this.getColors("#63cefd");
 		HSSFPalette palette = wb.getCustomPalette();
-		palette.setColorAtIndex(HSSFColor.BLACK.index, (byte) colors[0], (byte) colors[1], (byte) colors[2]);
+		palette.setColorAtIndex(HSSFColor.BLACK.index, (byte) colors[0],
+				(byte) colors[1], (byte) colors[2]);
 
 		style = getHSSFCellStyle(wb, HSSFColor.LIGHT_GREEN.index);
 		// style = wb.createCellStyle();
@@ -108,7 +110,8 @@ public class ExcelBuilder {
 	 * @param colNames
 	 *            Ҫ��ʾ��ͷ������
 	 */
-	public void createCommonHead(HSSFWorkbook wb, HSSFSheet sheet, String[] colNames) {
+	public void createCommonHead(HSSFWorkbook wb, HSSFSheet sheet,
+			String[] colNames) {
 		if (colNames == null || colNames.length == 0) {
 			wb = null;
 			sheet = null;
@@ -143,7 +146,8 @@ public class ExcelBuilder {
 	 *            д��Ŀ�ʼ��
 	 */
 	@SuppressWarnings("unchecked")
-	public void writeDataToExcel(List list, HSSFSheet sheet, HSSFWorkbook wb, int fromRow) {
+	public void writeDataToExcel(List list, HSSFSheet sheet, HSSFWorkbook wb,
+			int fromRow) {
 		if (list == null || list.isEmpty()) {
 			return;
 		}
@@ -159,10 +163,13 @@ public class ExcelBuilder {
 				continue;
 			row = getHSSFRow(sheet, i + fromRow - 1, 400);// �ӵ����п�ʼ��������
 			for (int j = 0; j < objs.length; j++) {
-				if (objs[j] instanceof String || objs[j] == null || "".equals(objs[j])) {
-					this.createCell(style, row, j, objs[j], HSSFCell.CELL_TYPE_STRING);
+				if (objs[j] instanceof String || objs[j] == null
+						|| "".equals(objs[j])) {
+					this.createCell(style, row, j, objs[j],
+							HSSFCell.CELL_TYPE_STRING);
 				} else if (objs[j] instanceof BigDecimal) {
-					this.createCell(style, row, j, objs[j], HSSFCell.CELL_TYPE_NUMERIC);
+					this.createCell(style, row, j, objs[j],
+							HSSFCell.CELL_TYPE_NUMERIC);
 				}
 			}
 		}
@@ -181,7 +188,8 @@ public class ExcelBuilder {
 	 * @param value
 	 *            ֵ
 	 */
-	public void createCell(HSSFCellStyle style, HSSFRow row, int col, Object value, int cellType) {
+	public void createCell(HSSFCellStyle style, HSSFRow row, int col,
+			Object value, int cellType) {
 		HSSFCell cell = row.createCell(col);
 		if (cellType == HSSFCell.CELL_TYPE_STRING) {
 			if (value != null && value instanceof BigDecimal) {
@@ -189,7 +197,8 @@ public class ExcelBuilder {
 				cell.setCellValue(dec.doubleValue());
 				dec = null;
 			} else
-				cell.setCellValue(new HSSFRichTextString((String) (value == null ? "" : value)));
+				cell.setCellValue(new HSSFRichTextString(
+						(String) (value == null ? "" : value)));
 		} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
 			if (value != null) {
 				BigDecimal dec = (BigDecimal) value;
@@ -242,7 +251,8 @@ public class ExcelBuilder {
 		style.setBottomBorderColor(color);// ߅���ɫ
 	}
 
-	public void setFont(HSSFWorkbook wb, HSSFCellStyle style, String fontName, int fontHeight, short bw) {
+	public void setFont(HSSFWorkbook wb, HSSFCellStyle style, String fontName,
+			int fontHeight, short bw) {
 		HSSFFont font = wb.createFont();
 		font.setFontName(fontName);
 		font.setFontHeight((short) fontHeight);
@@ -264,7 +274,8 @@ public class ExcelBuilder {
 	 * @param value
 	 *            ֵ
 	 */
-	public void createCell(HSSFCellStyle style, HSSFRow row, int col, String value) {
+	public void createCell(HSSFCellStyle style, HSSFRow row, int col,
+			String value) {
 		HSSFCell cell = row.createCell(col);
 		cell.setCellValue(new HSSFRichTextString(value));
 		cell.setCellStyle(style);
@@ -298,7 +309,8 @@ public class ExcelBuilder {
 	 * @param fileName
 	 *            �ļ����
 	 */
-	public void downloadExcel(HSSFWorkbook wb, HttpServletResponse response, String fileName) {
+	public void downloadExcel(HSSFWorkbook wb, HttpServletResponse response,
+			String fileName) {
 		if (wb == null || wb.getSheetAt(0) == null)
 			throw new NullPointerException("���Excel�ļ�����!");
 		try {
@@ -321,7 +333,8 @@ public class ExcelBuilder {
 		try {
 			returnFileName = URLEncoder.encode(fileName, "UTF-8");
 			if (returnFileName.length() > 150) {
-				returnFileName = new String(fileName.getBytes("GB2312"), "ISO8859-1");
+				returnFileName = new String(fileName.getBytes("GB2312"),
+						"ISO8859-1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

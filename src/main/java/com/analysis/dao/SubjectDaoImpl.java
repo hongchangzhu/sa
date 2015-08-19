@@ -18,31 +18,34 @@ import com.red.crm.MetadataServiceUtils;
 
 public class SubjectDaoImpl {
 	public void saveAll() {
-		// å­¦ç§‘
+		// Ñ§¿Æ
 		String jsonData = MetadataServiceUtils.getSubjectList();
-		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		// æŠŠjsonæ ¼å¼å­—ç¬¦ä¸²æ•°æ®è½¬æ¢ä¸ºå¯¹è±¡é›†åˆ,ç„¶åä¿å­˜åœ¨æœ¬åœ°æ•°æ®åº“ä¸­
-		List<Subject> list = g.fromJson(jsonData, new TypeToken<List<Subject>>() {
-		}.getType());
-		// System.out.println("è¿œç¨‹å­¦ç§‘æ•°æ®ï¼š" + jsonData);
-		// å­¦ç§‘
+		Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
+				.create();
+		// °Ñjson¸ñÊ½×Ö·û´®Êı¾İ×ª»»Îª¶ÔÏó¼¯ºÏ,È»ºó±£´æÔÚ±¾µØÊı¾İ¿âÖĞ
+		List<Subject> list = g.fromJson(jsonData,
+				new TypeToken<List<Subject>>() {
+				}.getType());
+		// System.out.println("Ô¶³ÌÑ§¿ÆÊı¾İ£º" + jsonData);
+		// Ñ§¿Æ
 		this.saveSubject(list);
 
 		List<PubVer> verList = new ArrayList<PubVer>();
 		for (Subject sub : list) {
 			String subjectId = sub.getSubjectId();
-			// æ•™æç‰ˆæœ¬
+			// ½Ì²Ä°æ±¾
 			jsonData = MetadataServiceUtils.getPubVerList(subjectId);
-			// System.out.println("è¿œç¨‹æ•™æç‰ˆæœ¬æ•°æ®ï¼š" + jsonData);
-			List<PubVer> verItems = g.fromJson(jsonData, new TypeToken<List<PubVer>>() {
-			}.getType());
+			// System.out.println("Ô¶³Ì½Ì²Ä°æ±¾Êı¾İ£º" + jsonData);
+			List<PubVer> verItems = g.fromJson(jsonData,
+					new TypeToken<List<PubVer>>() {
+					}.getType());
 			if (verItems != null)
 				for (PubVer ver : verItems) {
 					ver.setSubjectId(subjectId);
 					verList.add(ver);
 				}
 		}
-		// ç‰ˆæœ¬
+		// °æ±¾
 		this.savePubVer(verList);
 
 		List<BookCatelog> bookList = new ArrayList<BookCatelog>();
@@ -50,11 +53,12 @@ public class SubjectDaoImpl {
 			String subjectId = ver.getSubjectId();
 			String versionId = ver.getVersionId();
 
-			// æ•™æç« èŠ‚
+			// ½Ì²ÄÕÂ½Ú
 			jsonData = MetadataServiceUtils.getBookCat(versionId);
-			// System.out.println("è¿œç¨‹æ•™æç« èŠ‚æ•°æ®ï¼š" + jsonData);
-			List<BookCatelog> bookItems = g.fromJson(jsonData, new TypeToken<List<BookCatelog>>() {
-			}.getType());
+			// System.out.println("Ô¶³Ì½Ì²ÄÕÂ½ÚÊı¾İ£º" + jsonData);
+			List<BookCatelog> bookItems = g.fromJson(jsonData,
+					new TypeToken<List<BookCatelog>>() {
+					}.getType());
 			if (bookItems != null)
 				for (BookCatelog book : bookItems) {
 					book.setSubjectId(subjectId);
@@ -62,13 +66,13 @@ public class SubjectDaoImpl {
 					bookList.add(book);
 				}
 		}
-		// æ•™æç« èŠ‚
+		// ½Ì²ÄÕÂ½Ú
 		this.saveBookCatelog(bookList);
 
 	}
 
 	/**
-	 * æ•™æç« èŠ‚
+	 * ½Ì²ÄÕÂ½Ú
 	 * 
 	 * @param bookList
 	 */
@@ -133,7 +137,7 @@ public class SubjectDaoImpl {
 	}
 
 	/**
-	 * æ ¹æ®idè·å–å­¦ç§‘åç§°
+	 * ¸ù¾İid»ñÈ¡Ñ§¿ÆÃû³Æ
 	 * 
 	 * @param subjectId
 	 * @return
@@ -165,7 +169,7 @@ public class SubjectDaoImpl {
 	}
 
 	/**
-	 * é€šè¿‡å¹´çº§idè·å–å¹´çº§åç§°
+	 * Í¨¹ıÄê¼¶id»ñÈ¡Äê¼¶Ãû³Æ
 	 * 
 	 * @param gradeId
 	 * @return
@@ -197,14 +201,14 @@ public class SubjectDaoImpl {
 	}
 
 	/**
-	 * å­¦ç§‘
+	 * Ñ§¿Æ
 	 * 
 	 * @param list
 	 */
 	public void saveSubject(List<Subject> list) {
 		Connection con = null;
 		PreparedStatement stmt = null;
-		// å­¦ç§‘
+		// Ñ§¿Æ
 		try {
 			con = DBConnection.getConnection();
 			con.setAutoCommit(false);
@@ -235,7 +239,7 @@ public class SubjectDaoImpl {
 		List<Subject> list = new ArrayList<Subject>();
 		Subject subject = null;
 		// subject.setSubjectId("-");
-		// subject.setSubjectName("å…¨éƒ¨");
+		// subject.setSubjectName("È«²¿");
 		// list.add(subject);
 		// Subject subject = null;
 		try {
@@ -294,7 +298,7 @@ public class SubjectDaoImpl {
 	}
 
 	/**
-	 * ç‰ˆæœ¬
+	 * °æ±¾
 	 * 
 	 * @param verList
 	 */

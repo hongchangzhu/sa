@@ -30,12 +30,12 @@ body .mini-button-disabled, body a:hover.mini-button-disabled
 
 
 /*----------------------------------- textbox ----------------------------------*/
-.mini-textbox-border
+.mini-textbox-input
 {
     background:white;
 	border-color:#608058;        
 }
-body .mini-textbox-focus .mini-textbox-border
+body .mini-textbox-focus .mini-textbox-input
 {
     border-color: #608058;
 }
@@ -392,12 +392,12 @@ a:hover.mini-calendar-menu-year
 /*------------------- treegrid --------------------*/
 .mini-treegrid-border
 {
-    border-color:#608058;
+    border:1px solid #608058;
 }
 
 .mini-treegrid-header
 {
-    border-color:#608058;
+    border-bottom:solid 1px #608058;
 }
 .mini-treegrid-headerInner
 {
@@ -405,11 +405,12 @@ a:hover.mini-calendar-menu-year
 }
 .mini-treegrid td
 {
-    border-color:#a4b26d;    
+    border-right:solid 1px #a4b26d;
+    border-bottom:solid 1px #a4b26d;        
 }
 .mini-treegrid-header td
 {
-    border-color:#e3f0bb;
+    border-right:solid 1px #e3f0bb;
 }
 
 .mini-treegrid-selectedNode
@@ -439,11 +440,7 @@ a:hover.mini-calendar-menu-year
 }
 
 /*---------------------- tabs -----------------------------*/
-.mini-tabs-scrollCt
-{
-    border-color:#758d5e;
-    background:#f2f0e4 url(images/toolbar/header.gif) repeat-y 0 0;
-}
+
 .mini-tabs-leftButton, .mini-tabs-rightButton
 {
     border:solid 1px #b5afaf;
@@ -542,7 +539,7 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 
 /*---------------------- tree -----------------------------*/
 
-.mini-tree-node-hover .mini-tree-nodeshow
+.mini-tree-hottrack .mini-tree-node-hover
 {	    
 	background:#ffeec2;
 	border:solid 1px #758d5e;		
@@ -611,15 +608,15 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 
 
 /*------------------- grid --------------------*/
-.mini-grid-headerCell, .mini-grid-topRightCell
+.mini-grid-headerCell
 {
     background:#b8c692 url(images/grid/header.gif) repeat-x 0 0;
     border-right:#A5ACB5 1px solid;
     border-bottom:#A5ACB5 1px solid;
 }
-.mini-grid-footer, .mini-grid-pager
+.mini-grid-footer
 {
-    background:#cfd9a3;
+    background:#E7EAEE url(images/grid/footer.png) repeat-x 0 0;
 }
 .mini-grid-detailCell
 {    
@@ -638,6 +635,10 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 {
     border-right:#a4b26d 1px solid;
     border-bottom:#a4b26d 1px solid;    
+}
+.mini-grid-footer
+{
+    background:#cfd9a3;
 }
 .mini-grid-filterRow .mini-grid-table, .mini-grid-summaryRow .mini-grid-table {
     background: none repeat scroll 0 0 #eff4da;

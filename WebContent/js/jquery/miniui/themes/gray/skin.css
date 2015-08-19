@@ -50,12 +50,12 @@ body .mini-button-disabled, body a:hover.mini-button-disabled
 
 
 /*----------------------------------- textbox ----------------------------------*/
-.mini-textbox-border
+.mini-textbox-input
 {
     background:white;
 	border-color:#a5acb5;        
 }
-body .mini-textbox-focus .mini-textbox-border
+body .mini-textbox-focus .mini-textbox-input
 {
     border-color: #7F7F7F;
 }
@@ -252,17 +252,19 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 /*------------------- treegrid --------------------*/
 .mini-treegrid-border
 {
-    border-color:#9f9f9f;
+    border:1px solid #9f9f9f;
 }
 
 .mini-treegrid-header
 {
-    border-bottom:none;
+    border-bottom:solid 1px #a0a0a0;
 }
 .mini-treegrid-headerInner
 {
     background:#dcdcdc;
 }
+
+
 .mini-treegrid-selectedNode
 {
 	background:#a5a5a5;
@@ -312,11 +314,7 @@ body .mini-buttonedit-focus .mini-buttonedit-border
 
 
 /*---------------------- tabs -----------------------------*/
-.mini-tabs-scrollCt
-{
-    border-color:#a8a8a8;
-    background:#F3F3F3;
-}
+
 .mini-tabs-leftButton, .mini-tabs-rightButton
 {
     border:solid 1px #7F7F7F;
@@ -414,7 +412,7 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
 
 /*---------------------- tree -----------------------------*/
 
-.mini-tree-node-hover .mini-tree-nodeshow
+.mini-tree-hottrack .mini-tree-node-hover
 {
     border:1px solid #888888;
     background:#f2f2f2;
@@ -433,7 +431,7 @@ a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
     border-right:#9f9f9f 1px solid;
     border-bottom:#9f9f9f 1px solid;
 }
-.mini-grid-footer, .mini-grid-pager
+.mini-grid-footer
 {
     background:#f2f2f2;
 }

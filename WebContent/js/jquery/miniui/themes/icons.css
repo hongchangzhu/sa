@@ -1,4 +1,4 @@
-﻿.icon-add{
+.icon-add{
 	background:url(icons/add.gif) no-repeat;
 }
 .icon-addnew{
@@ -66,7 +66,7 @@
 	background:url(icons/filter.gif) no-repeat;
 }
 .icon-find{
-	background:url(icons/find.png) no-repeat;
+	background:url(icons/find.gif) no-repeat;
 }
 .icon-folder{
 	background:url(icons/folder.gif) no-repeat;
@@ -108,7 +108,7 @@
 	background:url(icons/upload.gif) no-repeat;
 }
 .icon-user{
-	background:url(icons/user.png) no-repeat;
+	background:url(icons/user.gif) no-repeat;
 }
 .icon-split{
 	background:url(icons/split.gif) no-repeat;
@@ -116,10 +116,6 @@
 .icon-addfolder{
 	background:url(icons/addfolder.gif) no-repeat;
 }
-
-.icon-expand{
-	background:url(icons/expand.gif) no-repeat;
-}
-.icon-collapse{
-	background:url(icons/collapse.gif) no-repeat;
+.icon-back{
+	background:url(icons/back.png) no-repeat;
 }

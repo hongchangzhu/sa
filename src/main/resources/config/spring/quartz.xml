@@ -3,16 +3,31 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<!-- 定时任务 -->
-	<!-- <bean id="testJob" class="com.example.quartz.TestJob">
+	<!-- 行政区划更新定时任务 -->
+	<bean id="regionJob" class="com.analysis.task.RegionJob">
+		<property name="regoinService" ref="regoinService" />
 	</bean>
-	<bean id="testJobDetail"
+	<bean id="regionJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject" ref="testJob" />
+		<property name="targetObject" ref="regionJob" />
 		<property name="targetMethod" value="doBiz" />
 	</bean>
-	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-		<property name="jobDetail" ref="testJobDetail" /> -->
+	<bean id="regionCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="regionJobDetail" />
+		<property name="cronExpression" value="30 * * * * ?" />
+	</bean>
+
+	<!-- 终端更新定时任务 -->
+	<bean id="termJob" class="com.analysis.task.TermJob"></bean>
+	<bean id="termJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="termJob" />
+		<property name="targetMethod" value="doBiz" />
+	</bean>
+	<bean id="termCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="termJobDetail" />
 		<!-- 1）Cron表达式的格式：秒 分 时 日 月 周 年(可选) -->
 		<!-- 字段名 允许的值 允许的特殊字符 -->
 		<!-- 秒 0-59 , - * / -->
@@ -39,14 +54,16 @@
 		<!-- 每周星期天凌晨1点实行一次：0 0 1 ? * L -->
 		<!-- 在26分、29分、33分执行一次：0 26,29,33 * * * ? -->
 		<!-- 每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 * * ? -->
-		<!-- <property name="cronExpression" value="30 * * * * ?" />
+		<property name="cronExpression" value="0 0 2 * * ?" />
 	</bean>
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<bean
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="cronTrigger" />
+				<ref bean="termCronTrigger" />
+				<ref bean="regionCronTrigger"/>
 			</list>
 		</property>
-	</bean> -->
+	</bean>
 
 </beans>

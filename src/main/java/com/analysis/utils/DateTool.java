@@ -8,16 +8,16 @@ import java.util.GregorianCalendar;
 
 import org.apache.commons.lang.StringUtils;
 
-public class DateTool {
+public class DateTool{
 	/**
-	 * åŠŸèƒ½: å°†æ—¥æœŸå¯¹è±¡æŒ‰ç…§æŸç§æ ¼å¼è¿›è¡Œè½¬æ¢ï¼Œè¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²
+	 * ¹¦ÄÜ: ½«ÈÕÆÚ¶ÔÏó°´ÕÕÄ³ÖÖ¸ñÊ½½øĞĞ×ª»»£¬·µ»Ø×ª»»ºóµÄ×Ö·û´®
 	 * 
 	 * @param date
-	 *            æ—¥æœŸå¯¹è±¡
+	 *            ÈÕÆÚ¶ÔÏó
 	 * @param pattern
-	 *            è½¬æ¢æ ¼å¼ ä¾‹ï¼šyyyy-MM-dd
+	 *            ×ª»»¸ñÊ½ Àı£ºyyyy-MM-dd
 	 */
-	public static String DateToString(Date date, String pattern) {
+	public static String DateToString(Date date, String pattern){
 		String strDateTime = null;
 
 		SimpleDateFormat formater = new SimpleDateFormat(pattern);
@@ -26,45 +26,46 @@ public class DateTool {
 	}
 
 	/**
-	 * åŠŸèƒ½: å°†ä¼ å…¥çš„æ—¥æœŸå¯¹è±¡æŒ‰ç…§yyyy-MM-ddæ ¼å¼è½¬æ¢æˆå­—ç¬¦ä¸²è¿”å›
+	 * ¹¦ÄÜ: ½«´«ÈëµÄÈÕÆÚ¶ÔÏó°´ÕÕyyyy-MM-dd¸ñÊ½×ª»»³É×Ö·û´®·µ»Ø
 	 * 
 	 * @param date
-	 *            æ—¥æœŸå¯¹è±¡
+	 *            ÈÕÆÚ¶ÔÏó
 	 * @return String
 	 */
-	public static String DateToString(Date date) {
+	public static String DateToString(Date date){
 		String _pattern = "yyyy-MM-dd";
 		return date == null ? null : DateToString(date, _pattern);
 	}
 
-	public static Calendar getCalendar(Date date) {
+	public static Calendar getCalendar(Date date){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return cal;
 	}
 
 	/**
-	 * æŠŠä¸€ä¸ªå­—ç¬¦ä¸²(ä¸€å®šè¦ä¿è¯æ˜¯æ­£ç¡®æ—¥æœŸ)è½¬åŒ–æˆJavaçš„Dateç±» å¦‚æœå¤±è´¥è¿”å›null å¦‚æœæ ¼å¼ä¸æ”¯æŒè¯·å°†æ ¼å¼å¢åŠ åˆ°datePatternä¸­
+	 * °ÑÒ»¸ö×Ö·û´®(Ò»¶¨Òª±£Ö¤ÊÇÕıÈ·ÈÕÆÚ)×ª»¯³ÉJavaµÄDateÀà Èç¹ûÊ§°Ü·µ»Ønull Èç¹û¸ñÊ½²»Ö§³ÖÇë½«¸ñÊ½Ôö¼Óµ½datePatternÖĞ
 	 * 
 	 * @param source
-	 *            ä¼ å…¥çš„æ—¥æœŸå­—ç¬¦ä¸²
+	 *            ´«ÈëµÄÈÕÆÚ×Ö·û´®
 	 * @return Date
 	 */
-	public static Date parseDate(String source) {
-		if (source == null || source.length() == 0)
+	public static Date parseDate(String source){
+		if(source == null || source.length() == 0)
 			return null;
-		String[] datePattern = { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "HH:mm:ss", "yyyy-MM-dd HH:mm" };
+		String[] datePattern = { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd",
+				"HH:mm:ss", "yyyy-MM-dd HH:mm" };
 		Date date = null;
-		for (int i = 0; i < datePattern.length; i++) {
+		for(int i = 0; i < datePattern.length; i++){
 			date = parseDate(source, datePattern[i]);
-			if (date != null)
+			if(date != null)
 				break;
 		}
 		datePattern = null;
 		return date;
 	}
 
-	public static java.sql.Date parseSqlDate(String pattern) {
+	public static java.sql.Date parseSqlDate(String pattern){
 		Date date = parseDate(pattern);
 		java.sql.Date returnV;
 		returnV = new java.sql.Date(date.getTime());
@@ -72,24 +73,24 @@ public class DateTool {
 	}
 
 	/**
-	 * æŠŠä¸€ä¸ªæŒ‡å®šæ ¼å¼çš„æ—¥æœŸå­—ç¬¦ä¸²è½¬åŒ–æˆJavaçš„Dateç±» å¦‚æœå¤±è´¥è¿”å›null
+	 * °ÑÒ»¸öÖ¸¶¨¸ñÊ½µÄÈÕÆÚ×Ö·û´®×ª»¯³ÉJavaµÄDateÀà Èç¹ûÊ§°Ü·µ»Ønull
 	 * 
 	 * @param source
-	 *            ä¼ å…¥çš„æ—¥æœŸå­—ç¬¦ä¸²
+	 *            ´«ÈëµÄÈÕÆÚ×Ö·û´®
 	 * @param format
-	 *            æ—¥æœŸçš„æ ¼å¼
+	 *            ÈÕÆÚµÄ¸ñÊ½
 	 * @return Date
 	 */
-	public static Date parseDate(String dateStr, String format) {
-		if (StringUtils.isBlank(dateStr))
+	public static Date parseDate(String dateStr, String format){
+		if(StringUtils.isBlank(dateStr))
 			return null;
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 		Date date = null;
 
-		try {
+		try{
 			date = dateFormat.parse(dateStr);
-		} catch (ParseException e) {
+		}catch(ParseException e){
 			// do nothing.
 		}
 
@@ -97,12 +98,12 @@ public class DateTool {
 	}
 
 	/**
-	 * å–å¾—ä¼ å…¥æ—¥æœŸæ˜¯å¤šå°‘å‘¨
+	 * È¡µÃ´«ÈëÈÕÆÚÊÇ¶àÉÙÖÜ
 	 * 
 	 * @param date
-	 * @return ç¬¬å‡ å‘¨
+	 * @return µÚ¼¸ÖÜ
 	 */
-	public static int getWeekOfYear(Date date) {
+	public static int getWeekOfYear(Date date){
 		Calendar c = new GregorianCalendar();
 		c.setFirstDayOfWeek(Calendar.MONDAY);
 		c.setMinimalDaysInFirstWeek(7);
@@ -112,21 +113,21 @@ public class DateTool {
 	}
 
 	/**
-	 * å–å¾—å½“å‰æ—¥æœŸæ˜¯å¤šå°‘å‘¨
+	 * È¡µÃµ±Ç°ÈÕÆÚÊÇ¶àÉÙÖÜ
 	 * 
-	 * @return ç¬¬å‡ å‘¨
+	 * @return µÚ¼¸ÖÜ
 	 */
-	public static int getWeekOfYear() {
+	public static int getWeekOfYear(){
 		return getWeekOfYear(new Date());
 	}
 
 	/**
-	 * å¾—åˆ°æŸä¸€å¹´å‘¨çš„æ€»æ•°
+	 * µÃµ½Ä³Ò»ÄêÖÜµÄ×ÜÊı
 	 * 
 	 * @param year
-	 * @return æŸä¸€å¹´å‘¨çš„æ€»æ•°
+	 * @return Ä³Ò»ÄêÖÜµÄ×ÜÊı
 	 */
-	public static int getMaxWeekNumOfYear(int year) {
+	public static int getMaxWeekNumOfYear(int year){
 		Calendar c = new GregorianCalendar();
 		c.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
 
@@ -134,13 +135,13 @@ public class DateTool {
 	}
 
 	/**
-	 * å¾—åˆ°æŸå¹´æŸå‘¨çš„ç¬¬ä¸€å¤©
+	 * µÃµ½Ä³ÄêÄ³ÖÜµÄµÚÒ»Ìì
 	 * 
 	 * @param year
 	 * @param week
-	 * @return æŸå¹´æŸå‘¨çš„ç¬¬ä¸€å¤©
+	 * @return Ä³ÄêÄ³ÖÜµÄµÚÒ»Ìì
 	 */
-	public static Date getFirstDayOfWeek(int year, int week) {
+	public static Date getFirstDayOfWeek(int year, int week){
 		Calendar c = new GregorianCalendar();
 		c.set(Calendar.YEAR, year);
 		c.set(Calendar.MONTH, Calendar.JANUARY);
@@ -153,33 +154,33 @@ public class DateTool {
 	}
 
 	/**
-	 * åŠŸèƒ½: å°†æ’å…¥çš„å­—ç¬¦ä¸²æŒ‰æ ¼å¼è½¬æ¢æˆå¯¹åº”çš„æ—¥æœŸå¯¹è±¡
+	 * ¹¦ÄÜ: ½«²åÈëµÄ×Ö·û´®°´¸ñÊ½×ª»»³É¶ÔÓ¦µÄÈÕÆÚ¶ÔÏó
 	 * 
 	 * @param str
-	 *            å­—ç¬¦ä¸²
+	 *            ×Ö·û´®
 	 * @param pattern
-	 *            æ ¼å¼
+	 *            ¸ñÊ½
 	 * @return Date
 	 */
-	public static Date StringToDate(String str, String pattern) {
+	public static Date StringToDate(String str, String pattern){
 		Date dateTime = null;
-		try {
-			if (str != null && !str.equals("")) {
+		try{
+			if(str != null && !str.equals("")){
 				SimpleDateFormat formater = new SimpleDateFormat(pattern);
 				dateTime = formater.parse(str);
 			}
-		} catch (Exception ex) {
+		}catch(Exception ex){
 		}
 		return dateTime;
 	}
 
 	/**
-	 * å–å¾—å½“å‰æ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©
+	 * È¡µÃµ±Ç°ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì
 	 * 
 	 * @param date
-	 * @return å½“å‰æ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©
+	 * @return µ±Ç°ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì
 	 */
-	public static Date getFirstDayOfWeek(Date date) {
+	public static Date getFirstDayOfWeek(Date date){
 		Calendar c = new GregorianCalendar();
 		c.setFirstDayOfWeek(Calendar.MONDAY);
 		c.setTime(date);
@@ -189,19 +190,19 @@ public class DateTool {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šè·å–æŒ‡å®šæŸå¹´æŸå‘¨çš„ç¬¬ä¸€å¤©çš„æ—¥æœŸå­—ç¬¦ä¸²
+	 * @¹¦ÄÜ£º»ñÈ¡Ö¸¶¨Ä³ÄêÄ³ÖÜµÄµÚÒ»ÌìµÄÈÕÆÚ×Ö·û´®
 	 * 
 	 * @param year
 	 * @param week
 	 * @return
 	 */
-	public static String getFirstDayOfYearWeek(int year, int week) {
+	public static String getFirstDayOfYearWeek(int year, int week){
 		Date date = DateTool.getFirstDayOfWeek(year, week - 1);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		int curyear = cal.get(Calendar.YEAR);
-		// å¦‚æœç¬¬ä¸€å¤©æ˜¯ä¸Šä¸€å¹´çš„æ—¥æœŸå‰‡è¿”å›1æœˆ1æ—¥
-		if (curyear != year)
+		// Èç¹ûµÚÒ»ÌìÊÇÉÏÒ»ÄêµÄÈÕÆÚ„t·µ»Ø1ÔÂ1ÈÕ
+		if(curyear != year)
 			return year + "-01-01";
 
 		return DateToString(date, "yyyy-MM-dd");
@@ -209,21 +210,21 @@ public class DateTool {
 
 	/**
 	 * 
-	 * @åŠŸèƒ½ï¼šè·å–æŒ‡å®šæŸå¹´æŸå‘¨çš„æœ€åä¸€å¤©çš„æ—¥æœŸå­—ç¬¦ä¸²
+	 * @¹¦ÄÜ£º»ñÈ¡Ö¸¶¨Ä³ÄêÄ³ÖÜµÄ×îºóÒ»ÌìµÄÈÕÆÚ×Ö·û´®
 	 * 
 	 * @param year
 	 * @param week
 	 * @return
 	 */
-	public static String getLastDayOfYearWeek(int year, int week) {
+	public static String getLastDayOfYearWeek(int year, int week){
 		Date date = DateTool.getFirstDayOfWeek(year, week);
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		int curyear = cal.get(Calendar.YEAR);
-		// å¦‚æœæœ€åä¸€å¤©æ˜¯ä¸‹ä¸€å¹´çš„æ—¥æœŸå‰‡è¿”å›12æœˆ31æ—¥
-		if (curyear != year)
+		// Èç¹û×îºóÒ»ÌìÊÇÏÂÒ»ÄêµÄÈÕÆÚ„t·µ»Ø12ÔÂ31ÈÕ
+		if(curyear != year)
 			return year + "-12-31";
 
 		return DateToString(cal.getTime(), "yyyy-MM-dd");

@@ -53,8 +53,8 @@ public class HotResServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("application/json;charset=UTF-8");
+		// request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json;charset=utf-8");
 		String acceptjson = "";
 		BufferedReader br = null;
 		JSONObject resp = new JSONObject();
@@ -73,7 +73,7 @@ public class HotResServlet extends HttpServlet {
 				JSONArray jsonArray = JSONArray.fromObject(acceptjson);
 				this.save(jsonArray);
 			} else {
-				throw new Exception("´«ÈëµÄ²ÎÊýÎª¿Õ");
+				throw new Exception("ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½Îªï¿½ï¿½");
 			}
 			resp.put("success", true);
 			resp.put("error", "");

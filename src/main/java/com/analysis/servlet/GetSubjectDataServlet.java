@@ -45,8 +45,13 @@ public class GetSubjectDataServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("gbk");
 		response.setContentType("text/html; charset=gbk");
+		
+		long begin = System.currentTimeMillis();
 		SubjectServiceImpl subjectService = new SubjectServiceImpl();
 		subjectService.updateAll();
+		long end = System.currentTimeMillis();
+		System.out.println("更新年级及学科数据花费时间：" + (end - begin) + "ms.");
+		
 		response.getWriter().write("success");
 	}
 
